@@ -11,8 +11,8 @@ async function main() {
 main();*/
 
 // Load MongoDBModels
-require('./app/MongoModels/EmployeeMongo');
-require('./app/MongoModels/UserMongo');
+//require('./app/MongoModels/EmployeeMongo');
+//require('./app/MongoModels/UserMongo');
 
 // MongoDB Connection
 var mongoURI = 'mongodb://localhost:27017/nodejs_project_7';
@@ -43,12 +43,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Load routes
-app.use('/', require('./routes/front/homeRoutes'));
-app.use('/about', require('./routes/front/homeRoutes'));
-app.use('/panel/employees', require('./routes/Panel/employeeRoutes'));
-app.use('/panel/users', require('./routes/Panel/userRoutes'));
+//app.use('/', require('./routes/front/homeRoutes'));
+//app.use('/about', require('./routes/front/homeRoutes'));
+//app.use('/api/panel/employees', require('./routes/Panel/employeeRoutes'));
+app.use('/api/panel/users', require('./routes/panel/userRoutes'));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 app.listen(port, () =>{
     console.log(`Server started on port ${port}`);
 });
