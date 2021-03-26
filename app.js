@@ -10,11 +10,11 @@ async function main() {
 }
 main();*/
 
-// Load MongoDBModels
+// Load MongoDBModelscls
 //require('./app/MongoModels/EmployeeMongo');
 //require('./app/MongoModels/UserMongo');
 
-// MongoDB Connection
+/*// MongoDB Connection
 var mongoURI = 'mongodb://localhost:27017/nodejs_project_7';
 // Map global promises
 mongoose.Promise = global.Promise;
@@ -27,7 +27,7 @@ mongoose.connect(mongoURI, {
     .then(() => console.log('MongooDb Connected'))
     .catch(err => {
         console.log(err)
-    });
+    });*/
 
 // Mysql Connection
 sequelize
@@ -45,8 +45,11 @@ app.use(bodyParser.json());
 // Load routes
 //app.use('/', require('./routes/front/homeRoutes'));
 //app.use('/about', require('./routes/front/homeRoutes'));
-//app.use('/api/panel/employees', require('./routes/Panel/employeeRoutes'));
+app.use('/api/panel/employees', require('./routes/panel/employeeRoutes'));
 app.use('/api/panel/users', require('./routes/panel/userRoutes'));
+app.use('/api/panel/chats', require('./routes/chat/chatRoutes'));
+app.use('/api', require('./routes/auth/authRoutes'));
+
 
 const port = process.env.PORT || 8000;
 app.listen(port, () =>{

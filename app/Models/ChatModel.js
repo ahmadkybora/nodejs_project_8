@@ -1,22 +1,14 @@
 const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
 
-const User = dbCon.define('User', {
-    first_name: {
-        type: DataTypes.STRING
-    },
-    last_name: {
-        type: DataTypes.STRING
-    },
+const Chat = dbCon.define('Chat', {
     username: {
-        type: DataTypes.STRING,
-        //unique
+        type: DataTypes.STRING
     },
-    email: {
-        type: DataTypes.STRING,
-        //unique
+    title: {
+        type: DataTypes.STRING
     },
-    password: {
+    description: {
         type: DataTypes.STRING
     },
     createdAt: {
@@ -29,5 +21,5 @@ const User = dbCon.define('User', {
     }
 });
 
-module.exports = User;
+module.exports = Chat;
 
