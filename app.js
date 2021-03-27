@@ -1,18 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const sequelize = require('./database/connection');
 const app = express();
 
-/*const { sequelize } = require('./models');
-async function main() {
-    await sequelize.sync();
-}
-main();*/
 
 // Load MongoDBModelscls
-//require('./app/MongoModels/EmployeeMongo');
-//require('./app/MongoModels/UserMongo');
+//require('./app/MongoDBModels/EmployeeMongo');
+//require('./app/MongoDBModels/UserDB');
+//require('./helpers/passport');
 
 /*// MongoDB Connection
 var mongoURI = 'mongodb://localhost:27017/nodejs_project_7';
@@ -42,6 +39,12 @@ sequelize
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+/*// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());*/
+
+const secureRoute = require('./routes/secure-routes');
+
 // Load routes
 //app.use('/', require('./routes/front/homeRoutes'));
 //app.use('/about', require('./routes/front/homeRoutes'));
@@ -49,7 +52,7 @@ app.use('/api/panel/employees', require('./routes/panel/employeeRoutes'));
 app.use('/api/panel/users', require('./routes/panel/userRoutes'));
 app.use('/api/panel/chats', require('./routes/chat/chatRoutes'));
 app.use('/api', require('./routes/auth/authRoutes'));
-
+app.use('/api', passport.authenticate('jwt', { session: false }), secureRoute);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () =>{

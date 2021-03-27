@@ -2,6 +2,10 @@ const User = require('../../Models/UserModel');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+//const mongoose = require('mongoose');
+//const UserDB = mongoose.model('UserDB');
 
 const AuthController = {
     showLoginForm,
@@ -14,33 +18,54 @@ const AuthController = {
 function showLoginForm(req, res){}
 
 async function login(req, res){
-    res.send('oj');
-    passport.use('login', new localStrategy(
-            {
-                usernameField: 'username',
-                passwordField: 'password'
-            },
-            async (username, password, done) => {
-                try {
-                    const user = await User.findOne({ username });
+    const body = req.body;
+    const user = await User.findOne({
+        where: {
+            username: body.username
+        }
+    });
 
-                    if (!user) {
-                        return done(null, false, { message: 'User not found' });
-                    }
+    if (user)
+    {
+        const validPassword = await bcrypt.compare(body.password, user.password);
+        if (!validPassword)
+        {
+            return res.status(422)
+                .json({
+                    state: false,
+                    message: "your passwords is not match",
+                    data: null,
+                });
+        }
 
-                    const validate = await user.isValidPassword(password);
+        const token = generateAccessToken(user.username, user.id);
+        user.token = token;
+        user.save();
 
-                    if (!validate) {
-                        return done(null, false, { message: 'Wrong Password' });
-                    }
-
-                    return done(null, user, { message: 'Logged in Successfully' });
-                } catch (error) {
-                    return done(error);
-                }
-            }
-        )
-    );
+        if (token)
+        {
+            return res.status(200)
+                .json({
+                    state: true,
+                    message: "your are logged in",
+                    data: {
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        username: user.username,
+                        token: token,
+                    },
+                });
+        }
+    }
+    else
+    {
+        return res.status(422)
+            .json({
+                state: false,
+                message: "User does not exists",
+                data: null,
+            });
+    }
 }
 
 function showRegisterForm(req, res){}
@@ -74,6 +99,23 @@ async function register(req, res){
         });
 }
 
-function logout(req, res){}
+function logout(req, res){
+    req.logout();
+    return res.status(200)
+        .json({
+            state: true,
+            message: "you are logged out",
+            data: null,
+        });
+}
+
+function generateAccessToken(username, id) {
+    return jwt.sign({
+        username: username,
+        id: id,
+        iat: new Date().getTime(),
+        exp: new Date().setDate(new Date().getDate() + 1)
+    }, 'TOP_SECRET', { expiresIn: 60 * 60 });
+}
 
 module.exports = AuthController;
