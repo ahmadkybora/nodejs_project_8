@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const AuthController = require('../../app/Controllers/Auth/AuthController');
+const authenticateToken = require('../../middlewares/authenticateToken');
 
 router.get('/login', AuthController.login);
 
@@ -11,7 +12,7 @@ router.post('/login', (req, res, next) => {
     })
 }, AuthController.showLoginForm);
 
-router.get('/register', AuthController.showRegisterForm);
+router.get('/register', AuthController.showRegisterForm, authenticateToken);
 router.post('/register', AuthController.register);
 router.get('/logout', AuthController.logout);
 

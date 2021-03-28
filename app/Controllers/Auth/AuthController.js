@@ -3,7 +3,8 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+require('dotenv').config();
+require('env');
 //const mongoose = require('mongoose');
 //const UserDB = mongoose.model('UserDB');
 
@@ -110,12 +111,13 @@ function logout(req, res){
 }
 
 function generateAccessToken(username, id) {
+    const accessToken = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET);
     return jwt.sign({
         username: username,
         id: id,
         iat: new Date().getTime(),
         exp: new Date().setDate(new Date().getDate() + 1)
-    }, 'TOP_SECRET', { expiresIn: 60 * 60 });
+    }, 'SECRET', { expiresIn: 60 * 60 });
 }
 
 module.exports = AuthController;
