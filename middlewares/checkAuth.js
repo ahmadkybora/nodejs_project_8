@@ -1,20 +1,28 @@
 const jwt = require('jsonwebtoken');
 
-async function checkAuth(req, res, next) {
-    const bearerToken = req.headers['authorization'];
-    if(bearerToken) {
-        jwt.verify(bearerToken, 'SECRET', (err) => {
-            if (err) {
-                console.log(err.message)
-                res.redirect('/login')
-            }
-            else{
-                next();
-            }
-        });
+const checkAuth = (req, res, next) => {
+    const authorizationHeader = req.headers.authorization;
+    let result;
+
+    if (authorizationHeader) {
+        const token = req.headers.authorization.split(' ')[1];
+        const options = {
+            expiresIn: '2d',
+        };
+        try {
+            result = jwt.verify(token, 'SECRET', options);
+            req.decoded = result;
+            next();
+        } catch (err) {
+            throw new Error(err);
+        }
+    } else {
+        result = {
+            error: `Authentication error. Token required.`,
+            status: 401
+        };
+        res.status(401).send(result);
     }
-    else{
-        res.redirect('/login')
-    }
-        return next();
-}
+};
+
+module.exports = checkAuth;

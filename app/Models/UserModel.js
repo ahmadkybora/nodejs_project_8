@@ -3,7 +3,9 @@ const dbCon = require('../../database/connection');
 
 const User = dbCon.define('User', {
     first_name: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        //required: true,
+        //unique: true
     },
     last_name: {
         type: DataTypes.STRING

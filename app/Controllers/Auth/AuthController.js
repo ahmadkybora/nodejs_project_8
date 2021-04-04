@@ -3,8 +3,8 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
-require('env');
+/*require('dotenv').config();
+require('env');*/
 //const mongoose = require('mongoose');
 //const UserDB = mongoose.model('UserDB');
 
@@ -111,13 +111,18 @@ function logout(req, res){
 }
 
 function generateAccessToken(username, id) {
-    const accessToken = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET);
+    //const accessToken = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET);
+    /*const payload = { username: username, id: id};
+    const options = { expiresIn: '2d', issuer: 'https://scotch.io' };
+    const secret = process.env.JWT_SECRET;
+    return jwt.sign(payload, secret, options);*/
+
     return jwt.sign({
         username: username,
         id: id,
-        iat: new Date().getTime(),
-        exp: new Date().setDate(new Date().getDate() + 1)
-    }, 'SECRET', { expiresIn: 60 * 60 });
+        /*iat: new Date().getTime(),
+        exp: new Date().setDate(new Date().getDate() + 1)*/
+    }, 'SECRET', { expiresIn: '24h' });
 }
 
 module.exports = AuthController;

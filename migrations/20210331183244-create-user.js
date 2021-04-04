@@ -9,31 +9,26 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       first_name: {
-        type: Sequelize.STRING,
-        //allowNull: false,
+        type: Sequelize.STRING
       },
       last_name: {
-        type: Sequelize.STRING,
-        //allowNull: false,
+        type: Sequelize.STRING
       },
       username: {
-        type: Sequelize.STRING,
-        //allowNull: false,
+        type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING,
-        //allowNull: false,
+        type: Sequelize.STRING
       },
       token: {
         type: Sequelize.STRING
       },
       password: {
-        type: Sequelize.STRING,
-        //allowNull: false,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
