@@ -4,7 +4,20 @@ const User = require('../../Models/UserModel');
 
 exports.index = (req, res) => {
 
+    /*res.render("panel/users", {
+
+    });*/
+
     User.findAll()
+        .then(users => {
+            res.render("panel/users", {
+                users: users
+            })
+        }).catch(err => {
+        console.log(err)
+    });
+
+/*    User.findAll()
         .then(users => {
             res.json({
                 state: true,
@@ -13,7 +26,7 @@ exports.index = (req, res) => {
             })
         }).catch(err => {
         console.log(err)
-    });
+    });*/
 
     /*EmployeeDB.find()
         .then(employees => {
@@ -42,7 +55,7 @@ exports.show = async (req, res) => {
 };
 
 exports.create = (req, res) => {
-    res.render('/panel/users/create')
+    res.render('panel/users/create');
 };
 
 exports.store = async (req, res) => {
@@ -67,8 +80,16 @@ exports.store = async (req, res) => {
         });
 };
 
-exports.edit = (req, res) => {
-    res.render('/panel/users/edit')
+exports.edit = async (req, res) => {
+    console.log(req.params.id);
+    await User.findByPk(req.params.id)
+        .then(user => {
+            res.render('panel/users/edit', {
+                user: user
+            });
+        }).catch(err => {
+            console.log(err)
+        });
 };
 
 exports.update = async (req, res) => {
@@ -88,11 +109,8 @@ exports.update = async (req, res) => {
         .then(() => {
             User.findByPk(req.params.id)
                 .then(user => {
-                    res.json({
-                        state: true,
-                        message: "success",
-                        data: user,
-                    })
+                    if(user)
+                        res.redirect("/panel/users")
                 }).catch(err => {
                 console.log(err)
             });

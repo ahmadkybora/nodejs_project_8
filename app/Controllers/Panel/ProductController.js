@@ -1,5 +1,7 @@
 const ProductController = {
-    index: (req, res) => {},
+    index: (req, res) => {
+        res.render("panel/products")
+    },
     create: (req, res) => {},
     store: (req, res) => {},
     show: (req, res) => {},

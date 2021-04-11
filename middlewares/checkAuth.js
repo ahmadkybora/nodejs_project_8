@@ -17,11 +17,12 @@ const checkAuth = (req, res, next) => {
             throw new Error(err);
         }
     } else {
-        result = {
+        /*result = {
             error: `Authentication error. Token required.`,
             status: 401
         };
-        res.status(401).send(result);
+        res.status(401).send(result);*/
+        res.redirect('/login')
     }
 };
 

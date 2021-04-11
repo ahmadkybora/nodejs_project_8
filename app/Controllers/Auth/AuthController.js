@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 require('env');*/
 //const mongoose = require('mongoose');
 //const UserDB = mongoose.model('UserDB');
+const sessionAuth = require('../../../middlewares/sessionAuth');
 
 const AuthController = {
     showLoginForm,
@@ -16,7 +17,9 @@ const AuthController = {
     logout,
 };
 
-function showLoginForm(req, res){}
+function showLoginForm(req, res){
+    res.render("auth/login")
+}
 
 async function login(req, res){
     const body = req.body;
@@ -25,6 +28,8 @@ async function login(req, res){
             username: body.username
         }
     });
+
+    sessionAuth(user);
 
     if (user)
     {
@@ -45,7 +50,8 @@ async function login(req, res){
 
         if (token)
         {
-            return res.status(200)
+            res.redirect("panel/dashboard");
+            /*return res.status(200)
                 .json({
                     state: true,
                     message: "your are logged in",
@@ -55,7 +61,12 @@ async function login(req, res){
                         username: user.username,
                         token: token,
                     },
-                });
+                });*/
+        }
+        else{
+            return res.json({
+                data: "no you cant"
+            })
         }
     }
     else
@@ -69,7 +80,9 @@ async function login(req, res){
     }
 }
 
-function showRegisterForm(req, res){}
+function showRegisterForm(req, res){
+    res.render("auth/register");
+}
 
 async function register(req, res){
     const body = req.body;
@@ -122,7 +135,7 @@ function generateAccessToken(username, id) {
         id: id,
         /*iat: new Date().getTime(),
         exp: new Date().setDate(new Date().getDate() + 1)*/
-    }, 'SECRET', { expiresIn: '24h' });
+    }, 'SECRET', { expiresIn: '2d' });
 }
 
 module.exports = AuthController;
