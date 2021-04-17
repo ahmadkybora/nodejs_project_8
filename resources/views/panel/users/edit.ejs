@@ -1,69 +1,94 @@
 <%- include('../../layouts/panel/header'); %>
-<form action="/panel/users/update/<%= user.id %>" method="post">
-    <!--//-->
-    <div class="row">
-        <div class="form-group col-md-6">
-            <input type="text" name="first_name" id="first-name" class="form-control"
-                   placeholder="First Name ..." value="<%= user.first_name %>">
-        </div>
-        <div class="form-group col-md-6">
-            <input type="text" name="last_name" id="last-name" class="form-control"
-                   placeholder="Last Name ..." value="<%= user.last_name %>">
-        </div>
+<div class="container">
+    <div class="jumbotron">
+        <!--//-->
+        <form>
+            <!--//-->
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input type="text"
+                           class="form-control"
+                           value="<%= user.first_name %>"
+                           name="first_name"
+                           id="first-name"
+                           placeholder="Enter First Name">
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text"
+                           class="form-control"
+                           value="<%= user.last_name %>"
+                           name="last_name"
+                           id="last-name"
+                           placeholder="Enter Last Name">
+                </div>
+            </div>
+            <!--//-->
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input type="text"
+                           class="form-control"
+                           value="<%= user.username %>"
+                           name="username"
+                           id="username"
+                           placeholder="Enter User Name">
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="email"
+                           class="form-control"
+                           value="<%= user.email %>"
+                           name="email"
+                           id="email"
+                           placeholder="Enter Email">
+                </div>
+            </div>
+            <!--//-->
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <input type="password"
+                           class="form-control"
+                           name="password"
+                           id="password"
+                           placeholder="Password">
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="password"
+                           class="form-control"
+                           name="confirmation_password"
+                           id="confirmation-password"
+                           placeholder="Confirmation Password">
+                </div>
+            </div>
+            <!--//-->
+            <div class="row">
+                <div class="form-group col-md-12">
+                <textarea class="form-control"
+                          name="home_address"
+                          id="home-address"
+                          placeholder="Enter Home Address"
+                          rows="5">
+                          <%= user.home_address %>
+                </textarea>
+                </div>
+            </div>
+            <!--//-->
+            <div class="row">
+                <div class="form-group col-md-12">
+                <textarea class="form-control"
+                          name="work_address"
+                          id="work-address"
+                          placeholder="Enter Work Address"
+                          rows="5">
+                          <%= user.home_address %>
+                </textarea>
+                </div>
+            </div>
+            <!--//-->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
     </div>
-    <!--//-->
-    <div class="row">
-        <div class="form-group col-md-6">
-            <input type="text" name="username" id="username" class="form-control"
-                   placeholder="User Name ..." value="<%= user.username %>">
-        </div>
-        <div class="form-group col-md-6">
-            <input type="email" name="email" id="email" class="form-control"
-                   placeholder="Email ..."  value="<%= user.email %>">
-        </div>
-    </div>
-    <!--//-->
-    <div class="row">
-        <div class="form-group col-md-6">
-            <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Mobile ...">
-        </div>
-        <div class="form-group col-md-6">
-            <input type="text" name="telephone" id="telephone" class="form-control"
-                   placeholder="Telephone ...">
-        </div>
-    </div>
-    <!--//-->
-    <div class="row">
-        <div class="form-group col-md-12">
-            <textarea name="" id="" class="form-control" placeholder=""></textarea>
-        </div>
-    </div>
-    <!--//-->
-    <div class="row">
-        <div class="form-group col-md-12">
-            <textarea name="" id="" class="form-control" placeholder=""></textarea>
-        </div>
-    </div>
-    <!--//-->
-    <div class="row">
-        <div class="form-group col-md-6">
-            <input type="password" name="password" id="password" class="form-control"
-                   placeholder="Password ...">
-        </div>
-        <div class="form-group col-md-6">
-            <input type="password" name="confirmation_password" id="confirmation-password"
-                   class="form-control" placeholder="Confirmation Password ...">
-        </div>
-    </div>
-    <!--//-->
-    <div class="form-group">
-        <button class="btn btn-primary">Register</button>
-        <br>
-        <br>
-        <p>Do you have account? please login</p>
-        <a href="/login" class="btn btn-success">Login</a>
-    </div>
-</form>
+</div>
 <%- include('../../layouts/panel/footer'); %>
 
 

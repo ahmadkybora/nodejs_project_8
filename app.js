@@ -17,6 +17,21 @@ const dir = path.basename('/Users/Refsnes/demo_path.js');
 const environment = process.env.NODE_ENV; // development
 const session = require('express-session');
 
+// sqlite Database
+/*const dbFile = '';
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database(dbFile, err => {
+    if(err){
+        console.log(err.message)
+    }
+    console.log('Connected')
+});*/
+
+// redis Database
+const redis = require('redis');
+const client = redis.createClient(); // localhost:6379
+client.on("error", (err) => console.log(err));
+
 //const stage = require('./config')[environment];
 
 // Load MongoDBModelscls
@@ -40,8 +55,17 @@ mongoose.connect(mongoURI, {
     });*/
 
 // Mysql Connection
-sequelize
+/*sequelize
     .authenticate()
+    .then(() => {
+        console.log('Mysql Connected.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });*/
+
+sequelize
+    .sync()
     .then(() => {
         console.log('Mysql Connected.');
     })

@@ -1,6 +1,7 @@
 const User = require('../../Models/UserModel');
 //const mongoose = require('mongoose');
 //const EmployeeDB = mongoose.model('Employees');
+const Handler = require('../../../app/Exceptions/Handler');
 
 exports.index = (req, res) => {
 
@@ -41,6 +42,19 @@ exports.show = async (req, res) => {
         res.send(employee);
     })*/
 
+    try {
+        const user = await User.findByPk(req.params.id);
+        res.render("panel/users/show", {
+            state: true,
+            message: "success",
+            user: user,
+        });
+
+    } catch (err) {
+        Handler.baseError(err);
+    }
+
+/*
     await User.findByPk(req.params.id)
         .then(user => {
             res.json({
@@ -51,6 +65,7 @@ exports.show = async (req, res) => {
         }).catch(err => {
             console.log(err)
         });
+*/
 
 };
 
@@ -69,11 +84,8 @@ exports.store = async (req, res) => {
 
     await User.create(newUser)
         .then(user => {
-            res.json({
-                state: true,
-                message: "success",
-                data: user,
-            })
+            if(user)
+                res.redirect("/panel/users")
         })
         .catch(err => {
             console.log(err)
@@ -81,7 +93,6 @@ exports.store = async (req, res) => {
 };
 
 exports.edit = async (req, res) => {
-    console.log(req.params.id);
     await User.findByPk(req.params.id)
         .then(user => {
             res.render('panel/users/edit', {

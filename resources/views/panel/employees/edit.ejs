@@ -1,5 +1,6 @@
 <%- include('../../layouts/panel/header'); %>
 <div class="container">
+    <h1><%= title %></h1>
     <div class="jumbotron">
         <!--//-->
         <form>
@@ -8,6 +9,7 @@
                 <div class="form-group col-md-6">
                     <input type="text"
                            class="form-control"
+                           value="<%= employee.first_name %>"
                            name="first_name"
                            id="first-name"
                            placeholder="Enter First Name">
@@ -15,6 +17,7 @@
                 <div class="form-group col-md-6">
                     <input type="text"
                            class="form-control"
+                           value="<%= employee.last_name %>"
                            name="last_name"
                            id="last-name"
                            placeholder="Enter Last Name">
@@ -25,6 +28,7 @@
                 <div class="form-group col-md-6">
                     <input type="text"
                            class="form-control"
+                           value="<%= employee.username %>"
                            name="username"
                            id="username"
                            placeholder="Enter User Name">
@@ -32,6 +36,7 @@
                 <div class="form-group col-md-6">
                     <input type="email"
                            class="form-control"
+                           value="<%= employee.email %>"
                            name="email"
                            id="email"
                            placeholder="Enter Email">
@@ -62,6 +67,7 @@
                           id="home-address"
                           placeholder="Enter Home Address"
                           rows="5">
+                          <%= employee.home_address %>
                 </textarea>
                 </div>
             </div>
@@ -73,6 +79,7 @@
                           id="work-address"
                           placeholder="Enter Work Address"
                           rows="5">
+                          <%= employee.home_address %>
                 </textarea>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 <%- include('../../layouts/panel/header'); %>
 <div class="container">
-    <a href="/panel/users/create" class="btn btn-success">Register Users</a>
+    <h3><%= title %></h3>
+    <a href="/panel/employees/create" class="btn btn-success">Register Employees</a>
     <table class="table table-striped table-bordered table-borderless tab-content table-hover table-responsive-lg">
         <thead>
         <tr>
@@ -12,15 +13,15 @@
         </tr>
         </thead>
         <tbody>
-        <% for(let user of users) { %>
+        <% for(let employee of employees) { %>
             <tr>
-                <td><%= user.id %></td>
-                <td><%= user.first_name %> <%= user.last_name %></td>
-                <td><%= user.username %></td>
-                <td><%= user.email %></td>
+                <td><%= employee.id %></td>
+                <td><%= employee.first_name %> <%= employee.last_name %></td>
+                <td><%= employee.username %></td>
+                <td><%= employee.email %></td>
                 <td>
-                    <a href="/panel/users/edit/<%= user.id %>" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="/panel/users/<%= user.id %>" class="btn btn-sm btn-success">Show</a>
+                    <a href="/panel/employees/edit/<%= employee.id %>" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="/panel/employees/show/<%= employee.id %>" class="btn btn-sm btn-success">Show</a>
                     <a href="" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
