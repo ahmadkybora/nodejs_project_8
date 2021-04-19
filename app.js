@@ -16,6 +16,23 @@ const path = require('path');
 const dir = path.basename('/Users/Refsnes/demo_path.js');
 const environment = process.env.NODE_ENV; // development
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
+//app.use(cookieParser());
+
+/*app.get('/', (req, res) => {
+    res.cookie("name", "express", {
+        //expires: new Date(Date.now() + 600000)
+        maxAge: 600000
+    }).send("cookie");
+});
+
+app.get('/delete-cookie', (req, res) => {
+    res.clearCookie("name").send("cookie");
+});*/
+
+//console.log(document.cookie);
+/*awesome cookie manager is a extention for cookie in chrome*/
 
 // sqlite Database
 /*const dbFile = '';
@@ -28,9 +45,11 @@ const db = new sqlite3.Database(dbFile, err => {
 });*/
 
 // redis Database
+/*
 const redis = require('redis');
 const client = redis.createClient(); // localhost:6379
 client.on("error", (err) => console.log(err));
+*/
 
 //const stage = require('./config')[environment];
 
