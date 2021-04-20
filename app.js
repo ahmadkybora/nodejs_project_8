@@ -1,4 +1,16 @@
-require('dotenv').config();
+//require('dotenv').config();
+
+// this module for log
+const morgan = require('morgan');
+if(process.env.NODE_ENV === 'development'){
+    app.use(morgan("dev"));
+}
+// this module for varable mohiti in system amel os
+/*const dotEnv = require('dotenv');
+dotEnv.config({path: './env'});
+
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => console.log(`server is : ${process.env.NODE_ENV} and is ${PORT}`));*/
 
 /*require('./node_modules/bootstrap/dist/css/bootstrap.min.css');
 require('./node_modules/bootstrap/dist/js/bootstrap.min.js');
@@ -15,21 +27,51 @@ const app = express();
 const path = require('path');
 const dir = path.basename('/Users/Refsnes/demo_path.js');
 const environment = process.env.NODE_ENV; // development
+
+
 const session = require('express-session');
+app.use(
+    session({
+        secret: ['veryimportantsecret','notsoimportantsecret','highlyprobablysecret'],
+        name: "secretname",
+        cookie: {
+            httpOnly: true,
+            secure: true,
+            sameSite: true,
+            maxAge: 600000 // Time is in miliseconds
+        },
+        resave: false
+    })
+);
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {maxAge: 600000}
+}));
+app.get('/', (req, res) => {
+    console.log(`session: ${req.session.page_views}`);
+    if(req.session.page_views){
+        req.session.page_views++;
+        res.send(`you ${req.session.page_views}`);
+    }
+    else {
+        req.session.page_views = 1;
+        res.send(`welcome`);
+    }
+});
+
 const cookieParser = require('cookie-parser');
-
-//app.use(cookieParser());
-
-/*app.get('/', (req, res) => {
+app.use(cookieParser());
+app.get('/', (req, res) => {
     res.cookie("name", "express", {
         //expires: new Date(Date.now() + 600000)
         maxAge: 600000
     }).send("cookie");
 });
-
 app.get('/delete-cookie', (req, res) => {
     res.clearCookie("name").send("cookie");
-});*/
+});
 
 //console.log(document.cookie);
 /*awesome cookie manager is a extention for cookie in chrome*/
@@ -92,20 +134,6 @@ sequelize
         console.error('Unable to connect to the database:', err);
     });
 
-app.use(
-    session({
-        secret: ['veryimportantsecret','notsoimportantsecret','highlyprobablysecret'],
-        name: "secretname",
-        cookie: {
-            httpOnly: true,
-            secure: true,
-            sameSite: true,
-            maxAge: 600000 // Time is in miliseconds
-        },
-        resave: false
-    })
-);
-
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/css/bootstrap.min.css'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js/bootstrap.min.js'));
 app.use(express.static(__dirname + '/node_modules/jquery/dist/jquery.min.js'));
@@ -151,3 +179,27 @@ app.listen(port, () =>{
 });*/
 
 module.exports = app;
+
+
+// free hosting
+// ۰۰۰webhost
+// Zoho Sites
+// FreeHosting
+// Hostinger
+// x10hosting
+// ۵gbFree
+// FreeWebHostingArea
+// 000Webhost
+// freehostingnoads
+// googiehost
+// Byethost
+// Infinityfree
+//
+//
+//
+//
+//
+//
+// https://app.infinityfree.net/accounts/create/step2
+// account: mypro.app.infinityfree.net
+// password: 09392141724abc
