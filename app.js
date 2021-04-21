@@ -1,10 +1,10 @@
 //require('dotenv').config();
 
 // this module for log
-const morgan = require('morgan');
+/*const morgan = require('morgan');
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan("dev"));
-}
+}*/
 // this module for varable mohiti in system amel os
 /*const dotEnv = require('dotenv');
 dotEnv.config({path: './env'});
@@ -20,7 +20,7 @@ require('./node_modules/popper.js/dist/popper.min.js');*/
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 const passport = require('passport');
 const sequelize = require('./database/connection');
 const app = express();
@@ -28,9 +28,44 @@ const path = require('path');
 const dir = path.basename('/Users/Refsnes/demo_path.js');
 const environment = process.env.NODE_ENV; // development
 
-
 const session = require('express-session');
-app.use(
+const TWO_HOURS = 1000 * 60 * 60 * 2;
+const {
+    PORT = 8000,
+    NODE_ENV = 'development',
+    SESS_LIFETIME = TWO_HOURS,
+    SESS_NAME = 'sid',
+    SESS_SECRET = 'ssh!quit,it\'asecret!',
+} = process.env;
+const IN_PROD = NODE_ENV === 'production';
+
+app.use(session({
+    name: SESS_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: SESS_SECRET,
+    cookie: {
+        maxAge: SESS_LIFETIME,
+        sameSite: true,
+        secure: IN_PROD
+    }
+}));
+app.get('/', (req, res) => {
+    const userId = req.session;
+    console.log(userId)
+})
+/*const session = require('express-session');
+app.use(session({
+    key: 'user_id',
+    secret: 'somerandonstuffs',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));*/
+
+/*app.use(
     session({
         secret: ['veryimportantsecret','notsoimportantsecret','highlyprobablysecret'],
         name: "secretname",
@@ -59,9 +94,9 @@ app.get('/', (req, res) => {
         req.session.page_views = 1;
         res.send(`welcome`);
     }
-});
+});*/
 
-const cookieParser = require('cookie-parser');
+/*const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 app.get('/', (req, res) => {
     res.cookie("name", "express", {
@@ -71,7 +106,7 @@ app.get('/', (req, res) => {
 });
 app.get('/delete-cookie', (req, res) => {
     res.clearCookie("name").send("cookie");
-});
+});*/
 
 //console.log(document.cookie);
 /*awesome cookie manager is a extention for cookie in chrome*/

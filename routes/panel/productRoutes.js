@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const ProductController = require('../../app/Controllers/Panel/ProductController');
-const checkAuth = require('../../middlewares/checkAuth');
+//const checkAuth = require('../../middlewares/checkAuth');
+const isLoggedIn = require('../../middlewares/sessions/isLoggedIn');
 
-router.get('/', ProductController.index);
+router.get('/', isLoggedIn, ProductController.index);
 router.get('/:id', ProductController.show);
 router.post('/', ProductController.create);
 router.post('/', ProductController.store);

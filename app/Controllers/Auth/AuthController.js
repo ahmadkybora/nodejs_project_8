@@ -29,7 +29,7 @@ async function login(req, res){
         }
     });
 
-    sessionAuth(user);
+    //sessionAuth(user);
 
     if (user)
     {
@@ -44,13 +44,29 @@ async function login(req, res){
                 });
         }
 
-        const token = generateAccessToken(user.username, user.id);
+        req.session.userId = user.id;
+        if(req.session.userId) {
+            //res.redirect("panel/dashboard");
+        return res.status(200)
+            .json({
+                state: true,
+                message: "your are logged in",
+                data: {
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    username: user.username,
+                },
+            })
+        }
+
+
+        /*const token = generateAccessToken(user.username, user.id);
         user.token = token;
         user.save();
 
         if (token)
         {
-            res.redirect("panel/dashboard");
+            res.redirect("panel/dashboard");*/
             /*return res.status(200)
                 .json({
                     state: true,
@@ -61,8 +77,8 @@ async function login(req, res){
                         username: user.username,
                         token: token,
                     },
-                });*/
-        }
+                });
+        }*/
         else{
             return res.json({
                 data: "no you cant"
