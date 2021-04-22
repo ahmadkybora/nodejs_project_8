@@ -44,10 +44,11 @@ async function login(req, res){
                 });
         }
 
-        req.session.userId = user.id;
-        if(req.session.userId) {
-            //res.redirect("panel/dashboard");
-        return res.status(200)
+        req.session.isLoggedIn = user.id;
+        console.log(req.session.isLoggedIn);
+        if(req.session.isLoggedIn) {
+            res.redirect("/panel/dashboard");
+        /*return res.status(200)
             .json({
                 state: true,
                 message: "your are logged in",
@@ -56,7 +57,7 @@ async function login(req, res){
                     last_name: user.last_name,
                     username: user.username,
                 },
-            })
+            })*/
         }
 
 
@@ -130,13 +131,16 @@ async function register(req, res){
 }
 
 function logout(req, res){
-    req.logout();
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
+/*    req.logout();
     return res.status(200)
         .json({
             state: true,
             message: "you are logged out",
             data: null,
-        });
+        });*/
 }
 
 function generateAccessToken(username, id) {

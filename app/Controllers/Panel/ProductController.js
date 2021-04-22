@@ -1,5 +1,6 @@
 const ProductController = {
     index: (req, res) => {
+        console.log(req.session.isLoggedIn);
         res.render("panel/products")
     },
     create: (req, res) => {},

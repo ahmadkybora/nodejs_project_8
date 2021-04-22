@@ -41,8 +41,8 @@ const IN_PROD = NODE_ENV === 'production';
 
 app.use(session({
     name: SESS_NAME,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     secret: SESS_SECRET,
     cookie: {
         maxAge: SESS_LIFETIME,
@@ -50,10 +50,10 @@ app.use(session({
         secure: IN_PROD
     }
 }));
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
     const userId = req.session;
     console.log(userId)
-})
+})*/
 /*const session = require('express-session');
 app.use(session({
     key: 'user_id',
