@@ -132,7 +132,7 @@ async function register(req, res){
 
 function logout(req, res){
     req.session.destroy(() => {
-        res.redirect('/');
+        res.redirect('/login');
     });
 /*    req.logout();
     return res.status(200)

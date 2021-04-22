@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const EmployeeController = require('../../app/Controllers/Panel/EmployeeController');
+const isLoggedIn = require('../../middlewares/sessions/isLoggedIn');
+
 /*const checkAuth = require('../../middlewares/checkAuth');
 
 router.get('/', checkAuth, EmployeeController.index);
@@ -10,12 +12,12 @@ router.patch('/:id', checkAuth, EmployeeController.update);
 router.delete('/:id', checkAuth, EmployeeController.destroy);*/
 
 
-router.get('/', EmployeeController.index);
-router.get('/:id', EmployeeController.show);
-router.get('/create', EmployeeController.create);
-router.post('/', EmployeeController.store);
-router.patch('/:id', EmployeeController.update);
-router.delete('/:id', EmployeeController.destroy);
+router.get('/', isLoggedIn, EmployeeController.index);
+router.get('/:id', isLoggedIn, EmployeeController.show);
+router.get('/create', isLoggedIn, EmployeeController.create);
+router.post('/', isLoggedIn, EmployeeController.store);
+router.patch('/:id', isLoggedIn, EmployeeController.update);
+router.delete('/:id', isLoggedIn, EmployeeController.destroy);
 
 module.exports = router;
 

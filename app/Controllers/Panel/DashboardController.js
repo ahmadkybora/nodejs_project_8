@@ -3,10 +3,7 @@ const DashboardController = {
 };
 
 function index(req, res) {
-    //console.log(req.session.isLoggedIn);
-    res.render("panel/dashboard", {
-        isLoggedIn: req.session.isLoggedIn,
-    })
+    res.render("panel/dashboard")
 }
 
 module.exports = DashboardController;

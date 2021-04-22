@@ -5,12 +5,12 @@ const ProductController = require('../../app/Controllers/Panel/ProductController
 const isLoggedIn = require('../../middlewares/sessions/isLoggedIn');
 
 router.get('/', isLoggedIn, ProductController.index);
-router.get('/:id', ProductController.show);
-router.post('/', ProductController.create);
-router.post('/', ProductController.store);
-router.get('/:id', ProductController.edit);
-router.patch('/:id', ProductController.update);
-router.delete('/:id', ProductController.destroy);
+router.get('/:id', isLoggedIn, ProductController.show);
+router.post('/', isLoggedIn, ProductController.create);
+router.post('/', isLoggedIn, ProductController.store);
+router.get('/:id', isLoggedIn, ProductController.edit);
+router.patch('/:id', isLoggedIn, ProductController.update);
+router.delete('/:id', isLoggedIn, ProductController.destroy);
 
 /*router.get('/', checkAuth, ProductController.index);
 router.get('/:id', checkAuth, ProductController.show);

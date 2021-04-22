@@ -4,10 +4,10 @@ const AuthController = require('../../app/Controllers/Auth/AuthController');
 
 const isLoggedOut = require('../../middlewares/sessions/isLoggedOut');
 
-router.get('/login', AuthController.showLoginForm);
+router.get('/login', isLoggedOut, AuthController.showLoginForm);
 router.post('/login', isLoggedOut, AuthController.login);
-router.get('/register', AuthController.showRegisterForm);
-router.post('/register', AuthController.register);
+router.get('/register', isLoggedOut, AuthController.showRegisterForm);
+router.post('/register', isLoggedOut, AuthController.register);
 router.get('/logout', AuthController.logout);
 
 module.exports = router;
