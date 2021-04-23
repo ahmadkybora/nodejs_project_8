@@ -18,6 +18,7 @@ require('./node_modules/jquery/dist/jquery.min.js');
 require('./node_modules/popper.js/dist/popper.min.js');*/
 
 const express = require('express');
+const expressLayout = require('express-ejs-layouts');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 //const mongoose = require('mongoose');
@@ -135,6 +136,9 @@ client.on("error", (err) => console.log(err));
 //require('./app/MongoDBModels/UserDB');
 //require('./helpers/passport');
 
+/*const connectDB = require('./database/mongoDBConnection');
+connectDB();*/
+
 /*// MongoDB Connection
 var mongoURI = 'mongodb://localhost:27017/nodejs_project_7';
 // Map global promises
@@ -168,6 +172,11 @@ sequelize
     .catch(err => {
         console.error('Unable to connect to the database:', err);
     });
+
+//app.use(expressLayout());
+
+// this is for css file
+//app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/css/bootstrap.min.css'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js/bootstrap.min.js'));
