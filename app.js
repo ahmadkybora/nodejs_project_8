@@ -18,7 +18,7 @@ require('./node_modules/jquery/dist/jquery.min.js');
 require('./node_modules/popper.js/dist/popper.min.js');*/
 
 const express = require('express');
-const expressLayout = require('express-ejs-layouts');
+//const expressLayout = require('express-ejs-layouts');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 //const mongoose = require('mongoose');

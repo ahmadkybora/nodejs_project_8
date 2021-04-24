@@ -2,6 +2,7 @@ const User = require('../../Models/UserModel');
 //const mongoose = require('mongoose');
 //const EmployeeDB = mongoose.model('Employees');
 const Handler = require('../../../app/Exceptions/Handler');
+const userSchema = require('../../../app/RequestsValidations/userSchema');
 
 exports.index = (req, res) => {
 
@@ -81,6 +82,8 @@ exports.store = async (req, res) => {
         email: req.body.email,
         password: req.body.password,
     };
+
+    userSchema.validate(newUser);
 
     await User.create(newUser)
         .then(user => {
