@@ -84,7 +84,7 @@ exports.store = async (req, res) => {
     };
 
     userSchema.validate(newUser);
-
+console.log(userSchema.validate(newUser))
     await User.create(newUser)
         .then(user => {
             if(user)

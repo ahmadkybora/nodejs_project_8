@@ -17,7 +17,7 @@ const schema = Yup.object().shape({
 });
 
 router.get('/', isLoggedIn, UserController.index);
-router.get('/:id', isLoggedIn, UserController.show);
+//router.get('/:id', isLoggedIn, UserController.show);
 router.get('/create', isLoggedIn, UserController.create);
 router.post('/', isLoggedIn, UserController.store);
 router.get('/edit/:id', isLoggedIn, UserController.edit);

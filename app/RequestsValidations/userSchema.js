@@ -21,7 +21,8 @@ const userSchema = Yup.object().shape({
         .max(255),
 
     confirmation_password: Yup.string()
-        .required("پسورد مطابقت ندارد").oneOf([Yup.ref("password"), null]),
+        .required("پسورد مطابقت ندارد")
+        .oneOf([Yup.ref("password"), null]),
 });
 
 module.exports = userSchema;
