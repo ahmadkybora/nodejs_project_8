@@ -1,6 +1,6 @@
 const Yup = require("yup");
 
-const userSchema = Yup.object().shape({
+const userRequestValidation = Yup.object().shape({
     first_name: Yup.string()
         .required("نام الزامی است")
         .min(4, "نام نباید کمتر از 4 حرف باشد")
@@ -25,4 +25,4 @@ const userSchema = Yup.object().shape({
         .oneOf([Yup.ref("password"), null]),
 });
 
-module.exports = userSchema;
+module.exports = userRequestValidation;
