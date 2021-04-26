@@ -8,6 +8,10 @@ require('env');*/
 //const mongoose = require('mongoose');
 //const UserDB = mongoose.model('UserDB');
 const sessionAuth = require('../../../middlewares/sessionAuth');
+const userRequestValidation = require('../../../app/RequestsValidations/userRequestValidation');
+const userRequest = require('../../../app/RequestsValidations/userRequest');
+const Validator = require('fastest-validator');
+const v = new Validator();
 
 const AuthController = {
     showLoginForm,
@@ -102,7 +106,42 @@ function showRegisterForm(req, res){
 }
 
 async function register(req, res){
-    const body = req.body;
+
+    const validate = v.validate(req.body, userRequest);
+    const errorArr = [];
+    if (validate === true) {
+        const {first_name, last_name, username, email, password, confirmation_password} = req.body;
+        if (password !== confirmation_password) {
+            errorArr.push({message: "کلمه های عبور یکسان نیستند"})
+            return res.render("auth/register", {
+                pageTitle: "ثبت نام کاربر",
+                path: "/register",
+                errors: errorArr,
+            });
+        }
+        res.redirect("panel/dashboard");
+    }
+    else {
+        res.render("auth/register", {
+            pageTitle: "ثبت نام کاربر",
+            path: "/register",
+            errors: validate,
+        });
+    }
+
+   /*await userRequestValidation
+        .validate(req.body)
+        .then(() => {
+            res.redirect("panel/dashboard");
+        })
+        .catch((err) => {
+            res.render("auth/register", {
+                pageTitle: "ثبت نام کاربر",
+                path: "/register",
+                errors: err.errors,
+            });
+        });*/
+    /*const body = req.body;
 
     if (body.password !== body.confirmation_password) {
         return res.status(422)
@@ -114,8 +153,8 @@ async function register(req, res){
     }
 
     const user = new User(body);
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
+    const salt = bcrypt.genSalt(10);
+    user.password = bcrypt.hash(user.password, salt);
     user.save()
         .then(() => {
             return res.status(201)
@@ -126,8 +165,12 @@ async function register(req, res){
                 });
         })
         .catch(err => {
-            console.log(err)
-        });
+            res.render("auth/register", {
+                pageTitle: '',
+                path: '/register',
+                errors: err.errors,
+            })
+        });*/
 }
 
 function logout(req, res){

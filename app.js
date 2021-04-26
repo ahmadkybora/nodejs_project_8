@@ -40,6 +40,7 @@ const {
 } = process.env;
 const IN_PROD = NODE_ENV === 'production';
 
+//app.use(expressLayout);
 app.use(session({
     name: SESS_NAME,
     resave: true,
@@ -51,6 +52,9 @@ app.use(session({
         secure: IN_PROD
     }
 }));
+
+//const ejsLint = require('ejs-lint');
+//app.use(ejsLint);
 /*app.get('/', (req, res) => {
     const userId = req.session;
     console.log(userId)
