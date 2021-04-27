@@ -12,6 +12,7 @@ const userRequestValidation = require('../../../app/RequestsValidations/userRequ
 const userRequest = require('../../../app/RequestsValidations/userRequest');
 const Validator = require('fastest-validator');
 const v = new Validator();
+const Handler = require('../../../app/Exceptions/Handler');
 
 const AuthController = {
     showLoginForm,
@@ -92,12 +93,7 @@ async function login(req, res){
     }
     else
     {
-        return res.status(422)
-            .json({
-                state: false,
-                message: "User does not exists",
-                data: null,
-            });
+        return Handler.Error_401(req, res);
     }
 }
 

@@ -207,6 +207,7 @@ const secureRoute = require('./routes/secure-routes');
 
 
 // Load routes
+app.use("/errors", require('./routes/errors/errorRoutes'));
 app.use('', require('./routes/front/homeRoutes'));
 //app.use('/about', require('./routes/front/homeRoutes'));
 app.use('', require('./routes/auth/authRoutes'));
