@@ -23,7 +23,7 @@ const AuthController = {
 };
 
 function showLoginForm(req, res){
-    res.render("auth/login")
+    res.render("auth/login");
 }
 
 async function login(req, res){
@@ -52,6 +52,7 @@ async function login(req, res){
         req.session.isLoggedIn = user.id;
         console.log(req.session.isLoggedIn);
         if(req.session.isLoggedIn) {
+            req.flash("success", "you are logged in");
             res.redirect("/panel/dashboard");
         /*return res.status(200)
             .json({

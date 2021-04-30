@@ -29,6 +29,7 @@ const path = require('path');
 const dir = path.basename('/Users/Refsnes/demo_path.js');
 const environment = process.env.NODE_ENV; // development
 
+const flash =require('connect-flash');
 const session = require('express-session');
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 const {
@@ -52,6 +53,8 @@ app.use(session({
         secure: IN_PROD
     }
 }));
+
+app.use(flash());
 
 //const ejsLint = require('ejs-lint');
 //app.use(ejsLint);
