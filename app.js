@@ -23,6 +23,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 //const mongoose = require('mongoose');
 const passport = require('passport');
+require('./config/passport');
 const sequelize = require('./database/connection');
 const app = express();
 const path = require('path');
@@ -55,7 +56,8 @@ app.use(session({
 }));
 
 app.use(flash());
-
+app.use(passport.initialize());
+app.use(passport.session());
 //const ejsLint = require('ejs-lint');
 //app.use(ejsLint);
 /*app.get('/', (req, res) => {

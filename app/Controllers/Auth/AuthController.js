@@ -15,6 +15,7 @@ const v = new Validator();
 const Handler = require('../../../app/Exceptions/Handler');
 
 const AuthController = {
+    handleLogin,
     showLoginForm,
     login,
     showRegisterForm,
@@ -23,7 +24,9 @@ const AuthController = {
 };
 
 function showLoginForm(req, res){
-    res.render("auth/login");
+    res.render("auth/login", {
+        error: req.flash("error")
+    });
 }
 
 async function login(req, res){
@@ -96,6 +99,14 @@ async function login(req, res){
     {
         return Handler.Error_401(req, res);
     }
+}
+
+async function handleLogin(req, res, next) {
+    await passport.authenticate("local", {
+        successRedirect: "panel/dashboard",
+        failureRedirect: "login",
+        failureFlash: true
+    })(req, res, next);
 }
 
 function showRegisterForm(req, res){
@@ -172,6 +183,7 @@ async function register(req, res){
 
 function logout(req, res){
     req.session.destroy(() => {
+        req.flash("success", "you are logged out")
         res.redirect('/login');
     });
 /*    req.logout();
