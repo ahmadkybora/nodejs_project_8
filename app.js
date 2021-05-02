@@ -29,6 +29,7 @@ const app = express();
 const path = require('path');
 const dir = path.basename('/Users/Refsnes/demo_path.js');
 const environment = process.env.NODE_ENV; // development
+const mongoose = require('mongoose');
 
 const flash =require('connect-flash');
 const session = require('express-session');
@@ -41,6 +42,7 @@ const {
     SESS_SECRET = 'ssh!quit,it\'asecret!',
 } = process.env;
 const IN_PROD = NODE_ENV === 'production';
+//const MongoStore = require('connect-mongo')(session);
 
 //app.use(expressLayout);
 app.use(session({
@@ -52,7 +54,8 @@ app.use(session({
         maxAge: SESS_LIFETIME,
         sameSite: true,
         secure: IN_PROD
-    }
+    },
+    //store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 
 app.use(flash());

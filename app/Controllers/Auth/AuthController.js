@@ -16,6 +16,7 @@ const Handler = require('../../../app/Exceptions/Handler');
 
 const AuthController = {
     handleLogin,
+    rememberMe,
     showLoginForm,
     login,
     showRegisterForm,
@@ -107,6 +108,16 @@ async function handleLogin(req, res, next) {
         failureRedirect: "login",
         failureFlash: true
     })(req, res, next);
+}
+
+function rememberMe(req, res) {
+    if (req.body.remember) {
+        req.session.cookie.originalMaxAge = 24 * 60 * 60 * 1000;
+    } else {
+        req.session.cookie.expire = null;
+    }
+
+    res.redirect("/panel/dashboard")
 }
 
 function showRegisterForm(req, res){

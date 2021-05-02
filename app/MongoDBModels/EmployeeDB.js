@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Yup = require("yup");
+const bcrypt = require('bcrypt');
 
 const EmployeeSchema = new mongoose.Schema({
     first_name: {
@@ -41,6 +42,19 @@ const userRequestValidation = Yup.object().shape({
 EmployeeSchema.statics.userValidation = function(body){
     return userRequestValidation.validate(body, {abortEarly: false});
 };
+
+EmployeeSchema.pre("save", function(next){
+    let employee = this;
+
+    if (!employee.isModified("password")) return next();
+
+    bcrypt.hash(employee.password, 10, (err, hash) => {
+        if(err) return next(err);
+
+        employee.password = hash;
+        next();
+    })
+});
 
 const Employee = mongoose.model("Employee", EmployeeSchema);
 
