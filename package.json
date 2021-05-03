@@ -4,12 +4,14 @@
   "description": "this is nodejs_project_8",
   "main": "app.js",
   "dependencies": {
+    "app-root-path": "^3.0.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.6.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^4.4.1",
     "cookie-parser": "^1.4.5",
+    "debug": "^2.6.9",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "ejs-lint": "^1.2.0",
@@ -32,12 +34,13 @@
     "sequelize-cli": "^6.2.0",
     "socket.io": "^4.0.0",
     "sqlite3": "^5.0.2",
+    "winston": "^3.3.3",
     "yup": "^0.32.9"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=production nodemon app.js",
-    "dev": "cross-env NODE_ENV=development nodemon app.js"
+    "dev": "cross-env NODE_ENV=development DEBUG=nodejs_project_8 nodemon app.js"
   },
   "author": "ahmad montazeri",
   "license": "MIT",

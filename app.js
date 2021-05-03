@@ -16,7 +16,7 @@ app.listen(PORT, () => console.log(`server is : ${process.env.NODE_ENV} and is $
 require('./node_modules/bootstrap/dist/js/bootstrap.min.js');
 require('./node_modules/jquery/dist/jquery.min.js');
 require('./node_modules/popper.js/dist/popper.min.js');*/
-
+const debug = require('debug')('nodejs_project_8');
 const express = require('express');
 //const expressLayout = require('express-ejs-layouts');
 const logger = require('morgan');
@@ -57,7 +57,7 @@ app.use(session({
     },
     //store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
-
+debug("Connected To Database");
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
