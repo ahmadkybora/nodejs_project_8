@@ -77,7 +77,11 @@ app.use(session({
         expires: 600000
     }
 }));*/
-
+const winston = require('./config/winston');
+if(process.env.NODE_ENV === "development") {
+    debug("MOrgan Enabled");
+    app.use(morgan("combine", {stream: winston.stream}))
+}
 /*app.use(
     session({
         secret: ['veryimportantsecret','notsoimportantsecret','highlyprobablysecret'],

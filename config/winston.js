@@ -22,7 +22,15 @@ const options = {
 
 const logger = new winston.createLogger({
     transports: [
-        new winston.transports.File(),
-        new winston.transports.Console(),
+        new winston.transports.File(options.File),
+        new winston.transports.Console(options.console),
     ]
 });
+
+logger.stream = {
+    write: function(message) {
+        logger.info(message);
+    }
+};
+
+module.exports = logger;
