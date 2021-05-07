@@ -13,7 +13,7 @@ router.delete('/:id', checkAuth, EmployeeController.destroy);*/
 
 
 router.get('/', isLoggedIn, EmployeeController.index);
-router.get('/:id', isLoggedIn, EmployeeController.show);
+//router.get('/:id', isLoggedIn, EmployeeController.show);
 router.get('/create', isLoggedIn, EmployeeController.create);
 router.post('/', isLoggedIn, EmployeeController.store);
 router.patch('/:id', isLoggedIn, EmployeeController.update);

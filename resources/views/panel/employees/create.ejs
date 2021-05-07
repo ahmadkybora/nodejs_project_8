@@ -65,16 +65,31 @@
                 </textarea>
                 </div>
             </div>
-            <!--//-->
-
-            <div id="editor">
-                <p>This is the editor content.</p>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <div class="input-group-prepend">
+                        <div class="btn btn-success">image</div>
+                        <input type="file"
+                               class="form-control"
+                               name="selectedImage"
+                               id="selectedImage"
+                               placeholder="Enter Last Name">
+                    </div>
+                </div>
             </div>
-            <script src="../../../../node_modules/ckeditor4/ckeditor.js"></script>
-            <script>
-                CKEDITOR.replace( 'editor' );
-            </script>
-
+            <!--//-->
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <div id="editor">
+                        <p>This is the editor content.</p>
+                    </div>
+                    <script src="../../../../node_modules/ckeditor4/ckeditor.js"></script>
+                    <script>
+                        CKEDITOR.replace('editor');
+                    </script>
+                </div>
+            </div>
+            <!--//-->
             <div class="row">
                 <div class="form-group col-md-12">
                 <textarea class="form-control"

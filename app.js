@@ -198,6 +198,7 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist/css/bootstrap.m
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js/bootstrap.min.js'));
 app.use(express.static(__dirname + '/node_modules/jquery/dist/jquery.min.js'));
 app.use(express.static(__dirname + '/node_modules/popper.js/dist/popper.min.js'));
+//app.use(express.static(__dirname + '/node_modules/tailwindcss/tailwind.css'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
