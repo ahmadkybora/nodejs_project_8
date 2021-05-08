@@ -227,6 +227,7 @@ app.use('', require('./routes/auth/authRoutes'));
 app.use('/panel/dashboard', require('./routes/panel/dashboardRoutes'));
 app.use('/panel/employees', require('./routes/panel/employeeRoutes'));
 app.use('/panel/users', require('./routes/panel/userRoutes'));
+app.use('/panel/brands', require('./routes/panel/brandRoutes'));
 app.use('/panel/products', require('./routes/panel/productRoutes'));
 app.use('/panel/chats', require('./routes/chat/chatRoutes'));
 //app.use('/api', passport.authenticate('jwt', { session: false }), secureRoute);

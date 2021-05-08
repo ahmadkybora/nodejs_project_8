@@ -11,7 +11,7 @@
 </head>
 <body class="text-gray-600 font-serif">
 <div id="app">
-    <div class="container-fluid">
+    <div class="container mx-auto bg-green-100 rounded" style="max-width: 1700px">
         <div class="row mt-5">
             <div class="col-md-3">
             </div>
@@ -24,11 +24,17 @@
             </div>
             <div class="col-md-3">
                 <div>
-                    <a href="/login" class="btn btn-success">Login</a>
-                    <a href="/register" class="btn btn-success">Register</a>
+                    <button class="bg-green-500 text-white font-bold py-2 px-4 rounded">
+                        <a href="/login">Login</a>
+                    </button>
+                    <button class="bg-green-500 text-white font-bold py-2 px-4 rounded">
+                        <a href="/register">Register</a>
+                    </button>
                 </div>
                 <div>
-                    <a href="/logout" class="btn btn-warning">logout</a>
+                    <button class="bg-red-500 text-white font-bold py-2 px-4 rounded">
+                        <a href="/logout">logout</a>
+                    </button>
                 </div>
             </div>
         </div>

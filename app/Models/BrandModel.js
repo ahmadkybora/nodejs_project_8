@@ -2,26 +2,12 @@ const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
 
 const Brand = dbCon.define('Brand', {
-    first_name: {
+    name: {
         type: DataTypes.STRING,
         //required: true,
         //unique: true
     },
-    last_name: {
-        type: DataTypes.STRING
-    },
-    username: {
-        type: DataTypes.STRING,
-        //unique
-    },
-    email: {
-        type: DataTypes.STRING,
-        //unique
-    },
-    token: {
-        type: DataTypes.STRING
-    },
-    password: {
+    status: {
         type: DataTypes.STRING
     },
     createdAt: {
