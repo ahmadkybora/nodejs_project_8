@@ -1,10 +1,10 @@
-const articleCategory = require('../../Models/articleCategory');
-const articleCategoryRequestValidation = require('../../../app/RequestsValidations/articleCategoryRequestValidation');
+const Article = require('../../Models/Product');
+const articleRequestValidation = require('../../../app/RequestsValidations/articleRequestValidation');
 const Validator = require('fastest-validator');
 const v = new Validator();
 const Handler = require('../../../app/Exceptions/Handler');
 
-const articleCategoryController = {
+const ArticleController = {
     index,
     create,
     store,
@@ -15,9 +15,9 @@ const articleCategoryController = {
 };
 
 async function index(req, res) {
-    const articles = await articleCategory.findAll();
+    const articles = await Article.findAll();
     try {
-        res.render("panel/article-categories", {
+        res.render("panel/article", {
             pageTitle: "",
             articles: articles,
         })
@@ -28,7 +28,7 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
-        await res.render("panel/article-categories/create", {
+        await res.render("panel/article/create", {
             pageTitle: "",
         })
     } catch (err) {
@@ -37,17 +37,17 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    const validate = v.validate(req.body, articleCategoryRequestValidation);
+    const validate = v.validate(req.body, articleRequestValidation);
     if (validate) {
         try {
-            await articleCategory.create(req.body);
-            res.redirect("panel/article-categories")
+            await Article.create(req.body);
+            res.redirect("panel/article")
         } catch (err) {
             return Handler.Error_503();
         }
     } else {
-        res.render("panel/article-categories/create", {
-            pageTitle: 'article-categories create',
+        res.render("panel/article/create", {
+            pageTitle: 'article create',
             //path: "/register",
             errors: validate,
         });
@@ -66,4 +66,4 @@ async function update(req, res) {
 async function destroy(req, res) {
 }
 
-module.exports = articleCategoryController;
+module.exports = ArticleController;

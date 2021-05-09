@@ -38,7 +38,7 @@ async function Error_500(req, res) {
     await res.render("errors/500", {
         path: 'errors/500',
         statusCode: 500,
-        message: 'Not Found',
+        message: 'Service is Unavailable',
         img: '../../../public/img/500.jpg'
     });
 }
