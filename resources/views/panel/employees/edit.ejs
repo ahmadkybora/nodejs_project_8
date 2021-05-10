@@ -1,9 +1,11 @@
 <%- include('../../layouts/panel/header'); %>
 <div class="container">
-    <h1><%= title %></h1>
+    <h1></h1>
     <div class="jumbotron">
         <!--//-->
-        <form>
+        <%- include("../../errors/errorMessages.ejs") %>
+        <!--<form onsubmit="employeeEdit(employee.id)" id="formData">-->
+        <form action="/panel/employees/update/<%= employee.id %>" method="post">
             <!--//-->
             <div class="row">
                 <div class="form-group col-md-6">
@@ -79,17 +81,40 @@
                           id="work-address"
                           placeholder="Enter Work Address"
                           rows="5">
-                          <%= employee.home_address %>
+                          <%= employee.work_address %>
                 </textarea>
                 </div>
             </div>
             <!--//-->
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
 </div>
+<!--<script src="js/panel/employees/edit.js"></script>-->
+<!--<script>
+    $( "#formData" ).submit(function() {
+
+    var formData = new FormData();
+    formData.append( 'formData', input.files[0] );
+
+    $.ajax({
+        url: 'localhost:8000/panel/employees/update' + id,
+        type: 'post',
+        data: formData
+    })
+        .success(function(data) {
+            if (data.success) {
+                // Lazy: refresh window
+                window.location.reload();
+            }
+        })
+        .error(function() {
+            // Show an error or something fancy
+        });
+    });
+</script>-->
 <%- include('../../layouts/panel/footer'); %>
 
 

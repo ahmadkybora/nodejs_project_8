@@ -22,7 +22,7 @@ router.get('/create', isLoggedIn, UserController.create);
 router.post('/', isLoggedIn, UserController.store);
 router.get('/edit/:id', isLoggedIn, UserController.edit);
 router.post('/update/:id', isLoggedIn, UserController.update);
-router.delete('/:id', isLoggedIn, UserController.destroy);
+router.get('/destroy/:id', isLoggedIn, UserController.destroy);
 
 /*router.get('/', checkAuth, UserController.index);
 router.get('/:id', checkAuth, UserController.show);

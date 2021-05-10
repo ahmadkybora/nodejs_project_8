@@ -1,4 +1,7 @@
 const Employee = require('../../Models/EmployeeModel');
+const employeeRequestValidation = require('../../../app/RequestsValidations/employeeRequestValidation');
+const Validator = require('fastest-validator');
+const v = new Validator();
 const Handler = require('../../../app/Exceptions/Handler');
 
 const EmployeeController = {
@@ -20,42 +23,42 @@ async function index(req, res) {
         });
 
     } catch (err) {
-        Handler.baseError(err);
+        //Handler.baseError(err);
         console.log(err)
     }
 }
 
-async function show(req, res){
+async function show(req, res) {
     try {
         const employee = await Employee.findByPk(req.params.id);
         res.render("panel/employees/show", {
             employee: employee
         })
-    }catch (err) {
+    } catch (err) {
         Handler.baseError(err);
     }
 }
 
-async function create(req, res){
-    await res.render('panel/employees/create',             {
+async function create(req, res) {
+    await res.render('panel/employees/create', {
         title: 'Register'
     });
 }
 
-async function store (req, res){
-    const newEmployee = {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-    };
-
-    try {
-        await Employee.create(newEmployee)
-        res.redirect("/panel/employees")
-    } catch (err) {
-        console.log(err)
+async function store(req, res) {
+    const validate = v.validate(req.body, employeeRequestValidation);
+    if (validate === true) {
+        try {
+            await Employee.create(req.body);
+            res.redirect("/panel/employees")
+        } catch (err) {
+            console.log(err)
+        }
+    } else {
+        return res.render("panel/employees/create", {
+            pageTitle: "",
+            errors: validate,
+        })
     }
 }
 
@@ -72,25 +75,25 @@ async function edit(req, res) {
 }
 
 async function update(req, res) {
-    const updateEmployee = {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-    };
-
-    try {
-        await Employee.update(updateEmployee, {
-            where: {
-                id: req.params.id
-            }
-        });
-        await Employee.findByPk(req.params.id);
-        res.redirect("/panel/employees")
-    } catch (err) {
-        console.log(err)
-    }
+    /*const validate = v.validate(req.body, employeeRequestValidation);
+    if (validate === true) {*/
+        try {
+            await Employee.update(req.body, {
+                where: {
+                    id: req.params.id
+                }
+            });
+            await Employee.findByPk(req.params.id);
+            res.redirect("/panel/employees")
+        } catch (err) {
+            console.log(err)
+        }
+    /*} else {
+        return res.render("panel/employees/edit", {
+            pageTitle: "",
+            errors: validate,
+        })
+    }*/
 }
 
 async function destroy(req, res) {

@@ -194,7 +194,7 @@ async function register(req, res){
 
 function logout(req, res){
     req.session.destroy(() => {
-        req.flash("success", "you are logged out")
+        //req.flash("success", "you are logged out")
         res.redirect('/login');
     });
 /*    req.logout();

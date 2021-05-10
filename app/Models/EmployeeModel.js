@@ -32,6 +32,12 @@ const Employee = dbCon.define("Employee", {
     password: {
         type: DataTypes.STRING
     },
+    home_address: {
+        type: DataTypes.STRING
+    },
+    work_address: {
+        type: DataTypes.STRING
+    },
 });
 
 module.exports = Employee;

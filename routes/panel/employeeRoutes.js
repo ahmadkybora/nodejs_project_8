@@ -15,9 +15,10 @@ router.delete('/:id', checkAuth, EmployeeController.destroy);*/
 router.get('/', isLoggedIn, EmployeeController.index);
 //router.get('/:id', isLoggedIn, EmployeeController.show);
 router.get('/create', isLoggedIn, EmployeeController.create);
-router.post('/', isLoggedIn, EmployeeController.store);
-router.patch('/:id', isLoggedIn, EmployeeController.update);
-router.delete('/:id', isLoggedIn, EmployeeController.destroy);
+router.post('/store', isLoggedIn, EmployeeController.store);
+router.get('/edit/:id', isLoggedIn, EmployeeController.edit);
+router.post('/update/:id', isLoggedIn, EmployeeController.update);
+router.get('/destroy/:id', isLoggedIn, EmployeeController.destroy);
 
 module.exports = router;
 

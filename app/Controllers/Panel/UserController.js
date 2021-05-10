@@ -107,46 +107,27 @@ exports.edit = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-    const updateUser = {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-    };
-
-    await User.update(updateUser, {
-        where: {
-            id: req.params.id
-        }
-    })
-        .then(() => {
-            User.findByPk(req.params.id)
-                .then(user => {
-                    if(user)
-                        res.redirect("/panel/users")
-                }).catch(err => {
-                console.log(err)
-            });
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    try {
+        await User.update(req.body, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.redirect('/panel/users')
+    }catch (err) {
+        console.log(err)
+    }
 };
 
 exports.destroy = async (req, res) => {
-    await User.destroy({
-        where: {
-            id: req.params.id
-        }
-    }).then(() => {
-        res.json({
-            state: true,
-            message: "success",
-            data: null,
-        })
-    })
-        .catch(err => {
-            console.log(err)
-    });
+    try {
+        await User.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.redirect('/panel/users')
+    } catch (err) {
+        console.log(err)
+    }
 };

@@ -2,7 +2,8 @@
 <div class="container">
     <div class="jumbotron">
         <!--//-->
-        <form>
+        <%- include("../../errors/errorMessages.ejs") %>
+        <form action="/panel/employees/store" method="post">
             <!--//-->
             <div class="row">
                 <div class="form-group col-md-6">

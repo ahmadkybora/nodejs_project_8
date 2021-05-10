@@ -19,15 +19,55 @@
                 <td class="border-4 border-green-100 text-center"><%= employee.username %></td>
                 <td class="border-4 border-green-100 text-center"><%= employee.email %></td>
                 <td class="border-4 border-green-100 text-center">
-                    <a href="/panel/users/edit/<%= employee.id %>" class="text-green-500 font-bold">Edit</a>
-                    <a href="/panel/users/<%= employee.id %>" class="text-blue-500 font-bold">Show</a>
-                    <a href="" class="text-red-500 font-bold">Delete</a>
+                    <a href="/panel/employees/edit/<%= employee.id %>" class="text-green-500 font-bold">Edit</a>
+                    <a href="/panel/employees/<%= employee.id %>" class="text-blue-500 font-bold">Show</a>
+                    <a href="/panel/employees/destroy/<%= employee.id %>" class="text-red-500 font-bold">Delete</a>
+<!--
+                    <a href="/panel/employees/destroy/<%= employee.id %>" onclick="employeeDelete(employee.id)" id="employee-delete" class="text-red-500 font-bold">Delete</a>
+-->
                 </td>
             </tr>
         <% } %>
         </tbody>
     </table>
 </div>
+<script>
+/*    function employeeDelete(id){
+        console.log(id)
+        $.ajax({
+            url: 'localhost:8000/panel/employees/destroy' + id,
+            type: 'DELETE',
+        })
+            .success(function(data) {
+                if (data.success) {
+                    // Lazy: refresh window
+                    window.location.reload();
+                }
+            })
+            .error(function() {
+                // Show an error or something fancy
+            });
+    }*/
+
+    /*$( "#employee-delete" ).click(function() {
+
+    var id = document.getElementById('employeeDelete');
+    console.log(id);
+    $.ajax({
+        url: 'localhost:8000/panel/employees/destroy' + id,
+        type: 'delete',
+    })
+        .success(function(data) {
+            if (data.success) {
+                // Lazy: refresh window
+                window.location.reload();
+            }
+        })
+        .error(function() {
+            // Show an error or something fancy
+        });
+    });*/
+</script>
 <%- include('../../layouts/panel/footer'); %>
 
 
