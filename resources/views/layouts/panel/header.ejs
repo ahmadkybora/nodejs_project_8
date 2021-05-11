@@ -3,19 +3,20 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link href="/tailwind.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
     <title></title>
 </head>
-<body class="text-gray-600 font-serif">
+<body style="background-color: lavenderblush">
 <div id="app">
     <div class="max-w-xl mx-auto bg-blue-100 rounded-xl shadow-md overflow-hidden xl:max-w-7xl">
-        <div class="grid grid-cols-4 gap-4">
-            <div>
+        <div class="row mt-5">
+            <div class="col-md-3">
             </div>
-            <div class="grid grid-rows-4 grid-flow-col gap-4">
+            <div class="col-md-6">
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control">
@@ -24,18 +25,18 @@
             </div>
             <div class="col-md-3">
                 <div>
-                    <button class="bg-green-500 text-white font-bold py-2 px-4 rounded">
+                    <button class="loginBTN">
                         <a href="/login">Login</a>
                     </button>
-                    <button class="bg-green-500 text-white font-bold py-2 px-4 rounded">
+                    <button class="loginBTN">
                         <a href="/register">Register</a>
                     </button>
                 </div>
-                <div>
-                    <button class="bg-red-500 text-white font-bold py-2 px-4 rounded">
+                <!--<div>
+                    <button class="btn btn-warning">
                         <a href="/logout">logout</a>
                     </button>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

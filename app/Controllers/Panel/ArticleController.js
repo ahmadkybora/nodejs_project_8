@@ -1,4 +1,4 @@
-const Article = require('../../Models/Product');
+const Article = require('../../Models/ArticleModel');
 const articleRequestValidation = require('../../../app/RequestsValidations/articleRequestValidation');
 const Validator = require('fastest-validator');
 const v = new Validator();
@@ -17,7 +17,7 @@ const ArticleController = {
 async function index(req, res) {
     const articles = await Article.findAll();
     try {
-        res.render("panel/article", {
+        res.render("panel/articles", {
             pageTitle: "",
             articles: articles,
         })
@@ -28,7 +28,7 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
-        await res.render("panel/article/create", {
+        await res.render("panel/articles/create", {
             pageTitle: "",
         })
     } catch (err) {
@@ -46,9 +46,8 @@ async function store(req, res) {
             return Handler.Error_503();
         }
     } else {
-        res.render("panel/article/create", {
+        res.render("panel/articles/create", {
             pageTitle: 'article create',
-            //path: "/register",
             errors: validate,
         });
     }
@@ -58,12 +57,41 @@ async function show(req, res) {
 }
 
 async function edit(req, res) {
+    try {
+        const article = Article.findByPk(req.params.id);
+        res.render("panel/articles/edit", {
+            pageTitle: 'article create',
+            article: article,
+        });
+    }catch (err) {
+       console.log(err)
+    }
 }
 
 async function update(req, res) {
+    try {
+        Article.update(req.body, {
+            where: {
+                id: req.params.id,
+            }
+        });
+        res.redirect('/panel/articles')
+    }catch (err) {
+        console.log(err)
+    }
 }
 
 async function destroy(req, res) {
+    try {
+        Article.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.redirect('/panel/articles')
+    }catch (err) {
+        console.log(err)
+    }
 }
 
 module.exports = ArticleController;

@@ -198,7 +198,6 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist/css/bootstrap.m
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js/bootstrap.min.js'));
 app.use(express.static(__dirname + '/node_modules/jquery/dist/jquery.min.js'));
 app.use(express.static(__dirname + '/node_modules/popper.js/dist/popper.min.js'));
-app.use(express.static(__dirname + '/node_modules/tailwindcss/tailwind.css'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -227,7 +226,10 @@ app.use('/panel/dashboard', require('./routes/panel/dashboardRoutes'));
 app.use('/panel/employees', require('./routes/panel/employeeRoutes'));
 app.use('/panel/users', require('./routes/panel/userRoutes'));
 app.use('/panel/brands', require('./routes/panel/brandRoutes'));
+app.use('/panel/product-categories', require('./routes/panel/productCategoryRoutes'));
 app.use('/panel/products', require('./routes/panel/productRoutes'));
+app.use('/panel/article-categories', require('./routes/panel/articleCategoryRoutes'));
+app.use('/panel/articles', require('./routes/panel/articleRoutes'));
 app.use('/panel/chats', require('./routes/chat/chatRoutes'));
 //app.use('/api', passport.authenticate('jwt', { session: false }), secureRoute);
 

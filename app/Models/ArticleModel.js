@@ -1,15 +1,18 @@
 const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
 
-const Brand = dbCon.define('Brand', {
+const Article = dbCon.define('Article', {
+    category_id: {
+        type: DataTypes.STRING,
+    },
     name: {
         type: DataTypes.STRING,
         //required: true,
         //unique: true
     },
-    /*status: {
+    status: {
         type: DataTypes.STRING
-    },*/
+    },
     createdAt: {
         allowNull: false,
         type: DataTypes.DATE
@@ -20,5 +23,5 @@ const Brand = dbCon.define('Brand', {
     }
 });
 
-module.exports = Brand;
+module.exports = Article;
 

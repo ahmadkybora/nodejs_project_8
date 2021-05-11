@@ -1,27 +1,27 @@
 <%- include('../../layouts/panel/header'); %>
 <div class="container max-auto">
-    <a href="/panel/products/create" class="bg-green-500 text-white font-bold py-2 px-4 rounded">Register Users</a>
+    <a href="/panel/products/create" class="btn btn-success">Register Products</a>
     <table class="table-fixed border-separate border border-green-800 mt-10">
-        <thead>
+        <thead class="text-center">
         <tr>
-            <th class="border-4 border-blue-100 text-center w-1/9">#</th>
-            <th class="border-4 border-blue-100 text-center w-1/4">FullName</th>
-            <th class="border-4 border-blue-100 text-center w-1/4">UserName</th>
-            <th class="border-4 border-blue-100 text-center w-1/4">Email</th>
-            <th class="border-4 border-blue-100 text-center w-1/4">Option</th>
+            <th>#</th>
+            <th>CategoryName</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Option</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
         <% for(let product of products) { %>
             <tr>
-                <td class="border-4 border-green-100 text-center"><%= product.id %></td>
-                <td class="border-4 border-green-100 text-center"><%= product.first_name %></td>
-                <td class="border-4 border-green-100 text-center"><%= product.username %></td>
-                <td class="border-4 border-green-100 text-center"><%= product.email %></td>
-                <td class="border-4 border-green-100 text-center">
-                    <a href="/panel/products/edit/<%= user.id %>" class="text-green-500 font-bold">Edit</a>
-                    <a href="/panel/products/<%= user.id %>" class="text-blue-500 font-bold">Show</a>
-                    <a href="" class="text-red-500 font-bold">Delete</a>
+                <td><%= product.id %></td>
+                <td><%= product.category_id %></td>
+                <td><%= product.name %></td>
+                <td><%= product.status %></td>
+                <td>
+                    <a href="/panel/products/edit/<%= product.id %>" class="text-success">Edit</a>
+                    <a href="/panel/products/<%= product.id %>" class="text-primary">Show</a>
+                    <a href="/panel/products/destroy/<%= product.id %>" class="text-danger">Delete</a>
                 </td>
             </tr>
         <% } %>

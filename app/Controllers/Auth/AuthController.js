@@ -131,13 +131,15 @@ async function register(req, res){
     if (validate === true) {
         const {first_name, last_name, username, email, password, confirmation_password} = req.body;
         if (password !== confirmation_password) {
-            errorArr.push({message: "کلمه های عبور یکسان نیستند"})
+            errorArr.push({message: "کلمه های عبور یکسان نیستند"});
             return res.render("auth/register", {
                 pageTitle: "ثبت نام کاربر",
                 path: "/register",
                 errors: errorArr,
             });
         }
+        const hash = await bcrypt.hash(password, 10);
+        User.create({first_name, last_name, username, email, password: hash});
         res.redirect("panel/dashboard");
     }
     else {

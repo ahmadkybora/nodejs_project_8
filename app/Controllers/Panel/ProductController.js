@@ -1,4 +1,5 @@
 const Product = require('../../Models/Product');
+const ProductCategory = require('../../Models/ProductCategory');
 const productRequestValidation = require('../../../app/RequestsValidations/productRequestValidation');
 const Validator = require('fastest-validator');
 const v = new Validator();
@@ -20,8 +21,10 @@ const ProductController = {
 
     create: async (req, res) => {
         try {
+            const categories = ProductCategory.findAll();
             await res.render("panel/products/create", {
-                pageTitle: ""
+                pageTitle: "",
+                categories: categories
             })
         } catch (err) {
             console.log(err)

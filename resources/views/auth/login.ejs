@@ -3,49 +3,38 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
     <title></title>
 </head>
 <body>
 
 <div id="app">
-    <div class="container max-auto">
-        <h1 class="text-center font-bold">Login Form</h1>
-        <div class="w-full max-w-xs">
-            <form method="post" action="/login" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                        Username
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                           name="username"
+    <div class="col-md-6 offset-md-3 mb-3">
+        <div class="mt-5 login">
+            <h1 class="text-center font-bold">Login Form</h1>
+            <form action="/login" method="post">
+                <div class="col-md-6 offset-md-3 mb-3">
+                    <input type="text"
+                           class="form-control loginInput"
                            id="username"
-                           type="text"
-                           placeholder="Username">
+                           name="username"
+                           placeholder="Username...">
                 </div>
-                <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                        Password
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                           name="password"
+                <div class="col-md-6 offset-md-3 mb-3">
+                    <input type="password"
+                           class="form-control loginInput"
                            id="password"
-                           type="password"
-                           placeholder="******************">
+                           name="password"
+                           placeholder="Password...">
                 </div>
-                <div class="flex items-center justify-between">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit">
-                        Sign In
-                    </button>
-                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                        Forgot Password?
-                    </a>
+                <div class="col-md-6 offset-md-3 mb-3">
+                    <button class="loginBTN">Login</button>
                 </div>
             </form>
-            <p class="text-center text-gray-500 text-xs">
-                &copy;2020 Acme Corp. All rights reserved.
-            </p>
         </div>
     </div>
 </div>
@@ -53,5 +42,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js" integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
 </body>
 </html>

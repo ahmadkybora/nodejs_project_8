@@ -1,5 +1,5 @@
 const productCategoryRequestValidation = {
-    brand_id: {
+/*    brand_id: {
         type: "string",
         trim: true,
         min: 2,
@@ -9,7 +9,7 @@ const productCategoryRequestValidation = {
             stringMin: "نام خانوادگی نباید کمتر از 2 کلمه باشد",
             stringMax: "نام خانوادگی نباید بیشتر از 255 کلمه باشد",
         }
-    },
+    },*/
     name: {
         type: "string",
         trim: true,

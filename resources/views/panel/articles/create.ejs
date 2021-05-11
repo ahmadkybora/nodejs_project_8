@@ -3,15 +3,15 @@
     <div class="jumbotron">
         <!--//-->
         <%- include("../../errors/errorMessages.ejs") %>
-        <form action="/panel/product-categories/store" method="post">
+        <form action="/panel/product/store" method="post">
             <!--//-->
             <div class="row">
                 <div class="form-group col-md-6">
                     <select class="form-control"
                             name="brand_id"
                             id="brand-id">
-                        <% for(let brand of brands) { %>
-                        <option value="<%= brand.id %>"><%= brand.name %></option>
+                        <% for(let category of categoies) { %>
+                            <option value="<%= category.id %>"><%= category.name %></option>
                         <% } %>
                     </select>
                 </div>

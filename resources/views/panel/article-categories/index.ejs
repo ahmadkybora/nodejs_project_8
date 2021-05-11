@@ -2,7 +2,7 @@
 <div class="container max-auto">
     <a href="/panel/product-categories/create" class="btn btn-success">Register productCategories</a>
     <table class="table">
-        <thead class="text-center">
+        <thead>
         <tr>
             <th>#</th>
             <th>Brand Name</th>
@@ -11,7 +11,7 @@
             <th>Option</th>
         </tr>
         </thead>
-        <tbody class="text-center">
+        <tbody>
         <% for(let category of categories) { %>
             <tr>
                 <td><%= category.id %></td>

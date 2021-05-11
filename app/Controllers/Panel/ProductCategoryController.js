@@ -1,4 +1,5 @@
 const ProductCategory = require('../../Models/ProductCategory');
+const Brand = require('../../Models/BrandModel');
 const productCategoryRequestValidation = require('../../../app/RequestsValidations/productCategoryRequestValidation');
 const Validator = require('fastest-validator');
 const v = new Validator();
@@ -21,44 +22,79 @@ async function index(req, res) {
             title: "Product Categories",
             categories: categories,
         })
-    }catch (err) {
+    } catch (err) {
         console.log(err)
     }
 }
 
 async function create(req, res) {
     try {
+        const brands = Brand.findAll();
         res.render("panel/product-categories/create", {
             title: "Product Categories",
+            brands: brands,
         })
-    }catch (err) {
+    } catch (err) {
         console.log(err)
     }
 }
 
 async function store(req, res) {
-    const validate = v.validate(req.body, productCategoryRequestValidation);
-    if(validate)
-    {
+/*    const validate = v.validate(req.body, productCategoryRequestValidation);
+    if (validate === true) {*/
         try {
-            await ProductCategoryController.create(req.body);
-            res.redirect("panel/product-categories")
-        }catch (err) {
+            await ProductCategory.create(req.body);
+            res.redirect("/panel/product-categories")
+        } catch (err) {
             return Handler.Error_503();
         }
-    }
-    else {
+/*    } else {
         res.render("panel/product-categories/create", {
             pageTitle: 'product-categories create',
             //path: "/register",
             errors: validate,
         });
+    }*/
+}
+
+async function show(req, res) {
+}
+
+async function edit(req, res) {
+    try {
+        const category = await ProductCategory.findByPk(req.params.id);
+        res.render("panel/product-categories", {
+            category: category
+        })
+    } catch (err) {
+        console.log(err)
     }
 }
 
-async function show(req, res) {}
-async function edit(req, res) {}
-async function update(req, res) {}
-async function destroy(req, res) {}
+async function update(req, res) {
+    try {
+        await ProductCategory.update(req.body, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.redirect("/panel/product-categories");
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+async function destroy(req, res) {
+    try {
+        await ProductCategory.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.redirect("/panel/product-categories");
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 module.exports = ProductCategoryController;

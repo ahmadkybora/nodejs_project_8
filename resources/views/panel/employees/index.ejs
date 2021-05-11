@@ -1,27 +1,27 @@
 <%- include('../../layouts/panel/header'); %>
-<div class="container max-auto">
-    <a href="/panel/employees/create" class="bg-green-500 text-white font-bold py-2 px-4 rounded">Register employees</a>
-    <table class="table-fixed border-separate border border-green-800 mt-10">
-        <thead>
+<div class="container">
+    <a href="/panel/employees/create" class="btn btn-success">Register employees</a>
+    <table class="table">
+        <thead class="text-center">
         <tr>
-            <th class="border-4 border-blue-100 text-center w-1/9">#</th>
-            <th class="border-4 border-blue-100 text-center w-1/4">FullName</th>
-            <th class="border-4 border-blue-100 text-center w-1/4">UserName</th>
-            <th class="border-4 border-blue-100 text-center w-1/4">Email</th>
-            <th class="border-4 border-blue-100 text-center w-1/4">Option</th>
+            <th>#</th>
+            <th>FullName</th>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Option</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
         <% for(let employee of employees) { %>
             <tr>
-                <td class="border-4 border-green-100 text-center"><%= employee.id %></td>
-                <td class="border-4 border-green-100 text-center"><%= employee.first_name %> <%= employee.last_name %></td>
-                <td class="border-4 border-green-100 text-center"><%= employee.username %></td>
-                <td class="border-4 border-green-100 text-center"><%= employee.email %></td>
-                <td class="border-4 border-green-100 text-center">
-                    <a href="/panel/employees/edit/<%= employee.id %>" class="text-green-500 font-bold">Edit</a>
-                    <a href="/panel/employees/<%= employee.id %>" class="text-blue-500 font-bold">Show</a>
-                    <a href="/panel/employees/destroy/<%= employee.id %>" class="text-red-500 font-bold">Delete</a>
+                <td><%= employee.id %></td>
+                <td><%= employee.first_name %> <%= employee.last_name %></td>
+                <td><%= employee.username %></td>
+                <td><%= employee.email %></td>
+                <td>
+                    <a href="/panel/employees/edit/<%= employee.id %>" class="text-success">Edit</a>
+                    <a href="/panel/employees/<%= employee.id %>" class="text-primary">Show</a>
+                    <a href="/panel/employees/destroy/<%= employee.id %>" class="text-danger">Delete</a>
 <!--
                     <a href="/panel/employees/destroy/<%= employee.id %>" onclick="employeeDelete(employee.id)" id="employee-delete" class="text-red-500 font-bold">Delete</a>
 -->

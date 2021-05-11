@@ -4,10 +4,11 @@ const ArticleCategoryController = require('../../app/Controllers/Panel/ArticleCa
 const isLoggedIn = require('../../middlewares/sessions/isLoggedIn');
 
 router.get('/', isLoggedIn, ArticleCategoryController.index);
-router.get('/:id', isLoggedIn, ArticleCategoryController.show);
-router.post('/', isLoggedIn, ArticleCategoryController.store);
-router.patch('/:id', isLoggedIn, ArticleCategoryController.update);
-router.delete('/:id', isLoggedIn, ArticleCategoryController.destroy);
+router.get('/show/:id', isLoggedIn, ArticleCategoryController.show);
+router.post('/store', isLoggedIn, ArticleCategoryController.store);
+router.get('/edit/:id', isLoggedIn, ArticleCategoryController.edit);
+router.post('/update/:id', isLoggedIn, ArticleCategoryController.update);
+router.get('/destroy/:id', isLoggedIn, ArticleCategoryController.destroy);
 
 module.exports = router;
 

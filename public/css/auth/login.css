@@ -1,0 +1,17 @@
+.login {
+    border-radius: 10px;
+    background-color: skyblue;
+}
+
+.login.h1 {
+    font-size: 12px;
+}
+
+.loginInput {
+    border-radius: 10px;
+}
+
+.loginBTN {
+    border-radius: 10px;
+    background-color: aquamarine;
+}

@@ -7,8 +7,9 @@ router.get('/', isLoggedIn, BrandController.index);
 //router.get('/:id', isLoggedIn, BrandController.show);
 router.get('/create', isLoggedIn, BrandController.create);
 router.post('/store', isLoggedIn, BrandController.store);
-router.patch('/:id', isLoggedIn, BrandController.update);
-router.delete('/:id', isLoggedIn, BrandController.destroy);
+router.get('/edit/:id', isLoggedIn, BrandController.edit);
+router.post('/update/:id', isLoggedIn, BrandController.update);
+router.get('/destroy/:id', isLoggedIn, BrandController.destroy);
 
 module.exports = router;
 

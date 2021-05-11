@@ -10,6 +10,9 @@ const Product = dbCon.define('Product', {
         //required: true,
         //unique: true
     },
+    price: {
+        type: DataTypes.STRING,
+    },
     status: {
         type: DataTypes.STRING
     },
