@@ -198,6 +198,7 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist/css/bootstrap.m
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js/bootstrap.min.js'));
 app.use(express.static(__dirname + '/node_modules/jquery/dist/jquery.min.js'));
 app.use(express.static(__dirname + '/node_modules/popper.js/dist/popper.min.js'));
+app.use(express.static(__dirname + '/node_modules/@fortawesome/fontawesome-free/css/fontawesome.css'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -218,9 +219,11 @@ const secureRoute = require('./routes/secure-routes');
 
 
 // Load routes
-app.use("/errors", require('./routes/errors/errorRoutes'));
-app.use('', require('./routes/front/homeRoutes'));
+app.use('/', require('./routes/front/homeRoutes'));
 //app.use('/about', require('./routes/front/homeRoutes'));
+
+app.use("/errors", require('./routes/errors/errorRoutes'));
+
 app.use('', require('./routes/auth/authRoutes'));
 app.use('/panel/dashboard', require('./routes/panel/dashboardRoutes'));
 app.use('/panel/employees', require('./routes/panel/employeeRoutes'));

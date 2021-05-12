@@ -2,6 +2,14 @@ const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
 
 const ProductCategory = dbCon.define('ProductCategory', {
+    id: {
+        type: DataTypes.BIGINT,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true,
+        unique: true,
+        required: true,
+    },
     brand_id: {
         type: DataTypes.BIGINT,
         //required: true,

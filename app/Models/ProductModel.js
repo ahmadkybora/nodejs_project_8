@@ -2,13 +2,19 @@ const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
 
 const Product = dbCon.define('Product', {
+    id: {
+        type: DataTypes.BIGINT,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true,
+        unique: true,
+        required: true,
+    },
     category_id: {
         type: DataTypes.STRING,
     },
     name: {
         type: DataTypes.STRING,
-        //required: true,
-        //unique: true
     },
     price: {
         type: DataTypes.STRING,

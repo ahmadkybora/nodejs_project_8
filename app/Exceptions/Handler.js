@@ -12,7 +12,7 @@ function Error_401(req, res) {
         path: 'errors/401',
         statusCode: 401,
         message: 'Unauthorized',
-        img: '../../public/img/401.jpg'
+        img: 'img/401.jpg'
     });
 }
 
@@ -21,7 +21,7 @@ async function Error_403(req, res) {
         path: 'errors/403',
         statusCode: 403,
         message: 'Forbidden',
-        img: '../../../public/img/403.jpg'
+        img: 'img/403.jpg'
     });
 }
 
@@ -30,7 +30,7 @@ async function Error_404(req, res) {
         path: '/404',
         statusCode: 404,
         message: 'Not Found',
-        img: '../../../public/img/404.jpg'
+        img: 'img/404.jpg'
     });
 }
 
@@ -39,7 +39,7 @@ async function Error_500(req, res) {
         path: 'errors/500',
         statusCode: 500,
         message: 'Service is Unavailable',
-        img: '../../../public/img/500.jpg'
+        img: 'img/500.jpg'
     });
 }
 
@@ -48,7 +48,7 @@ async function Error_503(req, res) {
         path: 'errors/503',
         statusCode: 503,
         message: 'Service is Unavailable',
-        img: '../../../public/img/503.jpg'
+        img: 'img/503.jpg'
     });
 }
 

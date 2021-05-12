@@ -2,6 +2,14 @@ const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
 
 const User = dbCon.define('User', {
+    id: {
+        type: DataTypes.BIGINT,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true,
+        unique: true,
+        required: true,
+    },
     first_name: {
         type: DataTypes.STRING,
         //required: true,

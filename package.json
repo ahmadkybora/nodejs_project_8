@@ -4,6 +4,7 @@
   "description": "this is nodejs_project_8",
   "main": "app.js",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "app-root-path": "^3.0.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",

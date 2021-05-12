@@ -1,16 +1,241 @@
-<%- include('../../layouts/front/header'); %>
-<%- include('../../layouts/front/navbar'); %>
-<%- include('../../layouts/front/banner'); %>
-<%- include('../../layouts/front/products'); %>
-<%- include('../../layouts/front/popular-products'); %>
-<%- include('../../layouts/front/product-categories'); %>
-<%- include('../../layouts/front/popular-product-categories'); %>
-<%- include('../../layouts/front/brands'); %>
-<%- include('../../layouts/front/popular-brands'); %>
-<%- include('../../layouts/front/article-categories'); %>
-<%- include('../../layouts/front/popular-article-categories'); %>
-<%- include('../../layouts/front/articles'); %>
-<%- include('../../layouts/front/popular-articles'); %>
-<%- include('../../layouts/front/chats'); %>
-<%- include('../../layouts/front/popular-chats'); %>
-<%- include('../../layouts/front/footer'); %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <title></title>
+</head>
+<body style="background-color: lavenderblush">
+<div id="app">
+    <!-- -&#45;&#45;-->
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <!-- -&#45;&#45;-->
+            <div class="col-md-3">
+                <h4>Node js Project</h4>
+            </div>
+            <!-- -&#45;&#45;-->
+            <div class="col-md-5">
+                <div class="input-group">
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                           aria-describedby="search-addon" />
+                    <button type="button" class="btn btn-outline-success">search</button>
+                </div>
+            </div>
+            <!-- -&#45;&#45;-->
+            <div class="col-md-4">
+                <div class="row">
+                    <!-- -&#45;&#45;-->
+                    <div class="container">
+                        <% if(isLoggedIn) { %>
+                            <div class="btn-group">
+                                <button class="btn btn-warning">
+                                    <a href="/logout">logout</a>
+                                </button>
+                            </div>
+                            <!-- -&#45;&#45;-->
+                            <div class="btn-group">
+                                <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    Cart <i class="fa fa-shopping-cart"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" type="button"></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button"></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button">Something else here</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- -&#45;&#45;-->
+                            <div class="btn-group">
+                                <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    Wallet <i class=""></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item" type="button">Action</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button">Another action</button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" type="button">Something else here</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- -&#45;&#45;-->
+                            <div class="btn-group">
+                                <a type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    Profile <i class=""></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="" class="dropdown-item" type="button">Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a href="" class="dropdown-item" type="button">Cart</a>
+                                    </li>
+                                    <li>
+                                        <a href="/logout" class="dropdown-item" type="button">Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <h5>Ahmad Montazeri </h5>
+                            </div>
+                            <!-- -&#45;&#45;-->
+                        <% } else { %>
+                            <div class="btn-group">
+                                <button class="loginBTN">
+                                    <a href="/login">Login</a>
+                                </button>
+                                <button class="loginBTN">
+                                    <a href="/register">Register</a>
+                                </button>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                <!-- -&#45;&#45;-->
+            </div>
+        </div>
+        <!-- -&#45;&#45;-->
+    </div>
+</div>
+<!-- -&#45;&#45;-->
+<%- include('../../layouts/front/navbar'); -%>
+<%- include('../../layouts/front/banner'); -%>
+<!-- -&#45;&#45;-->
+<div class="container mt-5">
+    <div class="jumbotron">
+        <% for(let product of products) { %>
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Name: <%= product.name %></h5>
+                    <p class="card-text">Price: <%= product.price %></p>
+                    <a href="#" class="text-primary"><i class="fa fa-thumbs-up"></i></a>
+                    <a href="#" class="text-primary"><i class="fa fa-thumbs-down"></i></a>
+                    <a href="#" class="text-danger"><i class="fa fa-heart"></i></a>
+                    <a href="#" class="text-success"><i class="fa fa-shopping-cart"></i></a>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+<!-- -&#45;&#45;-->
+<div class="container mt-5">
+    <div class="jumbotron">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -&#45;&#45;-->
+<div class="container mt-5">
+    <div class="jumbotron">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -&#45;&#45;-->
+<div class="container mt-5">
+    <div class="jumbotron">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -&#45;&#45;-->
+<div class="container mt-5">
+    <div class="jumbotron">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -&#45;&#45;-->
+<div class="container mt-5">
+    <div class="jumbotron">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -&#45;&#45;-->
+<div class="container mt-5">
+    <div class="jumbotron">
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -&#45;&#45;-->
+<%- include('../../layouts/front/product-categories'); -%>
+<%- include('../../layouts/front/popular-product-categories'); -%>
+<%- include('../../layouts/front/brands'); -%>
+<%- include('../../layouts/front/popular-brands'); -%>
+<%- include('../../layouts/front/article-categories'); -%>
+<%- include('../../layouts/front/popular-article-categories'); -%>
+<%- include('../../layouts/front/articles'); -%>
+<%- include('../../layouts/front/popular-articles'); -%>
+<%- include('../../layouts/front/chats'); -%>
+<%- include('../../layouts/front/popular-chats'); -%>
+<%- include('../../layouts/front/footer'); -%>

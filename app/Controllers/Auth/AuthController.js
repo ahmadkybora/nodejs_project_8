@@ -45,12 +45,13 @@ async function login(req, res){
         const validPassword = await bcrypt.compare(body.password, user.password);
         if (!validPassword)
         {
-            return res.status(422)
+            return Handler.Error_401(req, res);
+            /*return res.status(422)
                 .json({
                     state: false,
                     message: "your passwords is not match",
                     data: null,
-                });
+                });*/
         }
 
         req.session.isLoggedIn = user.id;
