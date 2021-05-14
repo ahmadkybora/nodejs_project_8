@@ -26,7 +26,7 @@ const User = dbCon.define('User', {
         type: DataTypes.STRING,
         //unique
     },
-    token: {
+    image: {
         type: DataTypes.STRING
     },
     password: {

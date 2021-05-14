@@ -10,8 +10,11 @@ const Chat = dbCon.define('Chat', {
         unique: true,
         required: true,
     },
-    username: {
-        type: DataTypes.STRING
+    category_id: {
+        type: DataTypes.BIGINT,
+    },
+    user_id: {
+        type: DataTypes.BIGINT,
     },
     title: {
         type: DataTypes.STRING

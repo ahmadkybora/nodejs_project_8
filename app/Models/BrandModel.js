@@ -15,9 +15,9 @@ const Brand = dbCon.define('Brand', {
         //required: true,
         //unique: true
     },
-    /*status: {
+    status: {
         type: DataTypes.STRING
-    },*/
+    },
     createdAt: {
         allowNull: false,
         type: DataTypes.DATE

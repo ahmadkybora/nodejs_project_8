@@ -29,7 +29,7 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
-        const brands = Brand.findAll();
+        const brands = await Brand.findAll();
         res.render("panel/product-categories/create", {
             title: "Product Categories",
             brands: brands,

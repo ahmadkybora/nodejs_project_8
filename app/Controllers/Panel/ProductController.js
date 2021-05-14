@@ -43,21 +43,21 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    const validate = v.validate(req.body, productRequestValidation);
-    if (validate) {
+    /*const validate = v.validate(req.body, productRequestValidation);
+    if (validate) {*/
         try {
             await Product.create(req.body);
-            res.redirect("panel/product")
+            res.redirect("/panel/product")
         } catch (err) {
             return Handler.Error_503();
         }
-    } else {
+    /*} else {
         res.render("panel/product/create", {
             pageTitle: 'product create',
             //path: "/register",
             errors: validate,
         });
-    }
+    }*/
 }
 
 async function show(req, res) {

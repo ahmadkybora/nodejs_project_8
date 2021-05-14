@@ -19,6 +19,12 @@ const Product = dbCon.define('Product', {
     price: {
         type: DataTypes.STRING,
     },
+    description: {
+        type: DataTypes.STRING,
+    },
+    image: {
+        type: DataTypes.STRING,
+    },
     status: {
         type: DataTypes.STRING
     },

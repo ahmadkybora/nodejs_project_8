@@ -44,6 +44,26 @@ const {
 const IN_PROD = NODE_ENV === 'production';
 //const MongoStore = require('connect-mongo')(session);
 
+
+
+
+/////////////////////////////////////////////////
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+io.on('connection', socket => {
+    console.log('connection socket');
+
+    socket.on('sendMessage', msg => {
+        //console.log(msg);
+        socket.broadcast.emit('sendToAll', msg)
+    })
+});
+/////////////////////////////////////////////////
+
+
+
+
+
 //app.use(expressLayout);
 app.use(session({
     name: SESS_NAME,
@@ -233,6 +253,7 @@ app.use('/panel/product-categories', require('./routes/panel/productCategoryRout
 app.use('/panel/products', require('./routes/panel/productRoutes'));
 app.use('/panel/article-categories', require('./routes/panel/articleCategoryRoutes'));
 app.use('/panel/articles', require('./routes/panel/articleRoutes'));
+app.use('/panel/chat-categories', require('./routes/chat/chatCategoryRoutes'));
 app.use('/panel/chats', require('./routes/chat/chatRoutes'));
 //app.use('/api', passport.authenticate('jwt', { session: false }), secureRoute);
 

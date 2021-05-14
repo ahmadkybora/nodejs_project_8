@@ -26,7 +26,7 @@ const Employee = dbCon.define("Employee", {
     email: {
         type: DataTypes.STRING
     },
-    token: {
+    image: {
         type: DataTypes.STRING
     },
     password: {

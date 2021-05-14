@@ -1,4 +1,5 @@
 const Article = require('../../Models/ArticleModel');
+const ArticleCategory = require('../../Models/ArticleCategory');
 const articleRequestValidation = require('../../../app/RequestsValidations/articleRequestValidation');
 const Validator = require('fastest-validator');
 const v = new Validator();
@@ -28,8 +29,10 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
+        const categories = await ArticleCategory.findAll();
         await res.render("panel/articles/create", {
             pageTitle: "",
+            categories: categories
         })
     } catch (err) {
         console.log(err)

@@ -18,6 +18,9 @@ const ProductCategory = dbCon.define('ProductCategory', {
         type: DataTypes.STRING,
         //required: true,
     },
+    image: {
+        type: DataTypes.STRING,
+    },
     status: {
         type: DataTypes.STRING
     },

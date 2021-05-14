@@ -15,8 +15,6 @@ const ArticleCategory = dbCon.define('ArticleCategory', {
     },
     name: {
         type: DataTypes.STRING,
-        //required: true,
-        //unique: true
     },
     status: {
         type: DataTypes.STRING

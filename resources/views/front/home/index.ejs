@@ -25,7 +25,7 @@
             <div class="col-md-5">
                 <div class="input-group">
                     <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                           aria-describedby="search-addon" />
+                           aria-describedby="search-addon"/>
                     <button type="button" class="btn btn-outline-success">search</button>
                 </div>
             </div>
@@ -140,29 +140,73 @@
 <!-- -&#45;&#45;-->
 <div class="container mt-5">
     <div class="jumbotron">
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                    the
-                    card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+        <form class="msg-text">
+            <div class="form-group">
+                <input type="text" name="msg" id="msg" class="form-control" placeholder="Type Message Here..."
+                       autocomplete="off">
             </div>
-        </div>
+            <div class="form-group" id="btn-send">
+                <button class="btn btn-success">Send</button>
+            </div>
+        </form>
     </div>
 </div>
+<!-- -&#45;&#45;-->
+<div class="container">
+    <br>
+    <div class="jumbotron">
+        <h1 class="display-4">Send Message</h1>
+        <br>
+        <input id="name" class="form-control" placeholder="Name">
+        <br>
+        <textarea id="message" class="form-control" placeholder="Your Message Here">
+</textarea>
+        <br>
+        <button id="send" class="btn btn-success">Send</button>
+    </div>
+    <div id=”messages”>
+
+    </div>
+</div>
+<script>
+    $(() => {
+        $("#send").click(() => {
+            sendMessage({
+                name: $("#name").val(),
+                message: $("#message").val()
+            });
+        })
+        getMessages()
+    });
+
+    function addMessages(message) {
+        $("#messages").append(`
+      <h4> ${message.name} </h4>
+      <p>  ${message.message} </p>`)
+    }
+
+    function getMessages() {
+        $.get('http://localhost:8000/panel/chats', (data) => {
+            data.forEach(addMessages);
+        })
+    }
+
+    function sendMessage(message) {
+        $.post('http://localhost:8000/panel/chat/store', message)
+    }
+
+</script>
 <!-- -&#45;&#45;-->
 <div class="container mt-5">
     <div class="jumbotron">
         <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                    the
-                    card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <% for(let chat of chats) { %>
+                    <h5 class="card-title"><%= chat.category_id %></h5>
+                    <p class="card-text"><%= chat.title %></p>
+                    <a href="<% chat.id %>" class="btn btn-primary">Go</a>
+                    <hr>
+                <% } %>
             </div>
         </div>
     </div>
@@ -239,3 +283,5 @@
 <%- include('../../layouts/front/chats'); -%>
 <%- include('../../layouts/front/popular-chats'); -%>
 <%- include('../../layouts/front/footer'); -%>
+
+

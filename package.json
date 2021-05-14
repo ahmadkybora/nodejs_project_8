@@ -20,12 +20,12 @@
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.1",
-    "fastest-validator": "^1.10.1",
+    "fastest-validator": "^1.11.0",
     "jalali-moment": "^3.3.10",
     "jquery": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.5.3",
-    "mongoose": "^5.12.7",
+    "mongoose": "^5.12.8",
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
     "passport-http-bearer": "^1.0.1",
@@ -35,7 +35,7 @@
     "redis": "^3.1.1",
     "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0",
-    "socket.io": "^4.0.2",
+    "socket.io": "^4.1.1",
     "sqlite3": "^5.0.2",
     "winston": "^3.3.3",
     "yup": "^0.32.9"
@@ -48,12 +48,12 @@
   "author": "ahmad montazeri",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^14.14.44",
+    "@types/node": "^14.14.45",
     "autoprefixer": "^10.2.5",
     "cross-env": "^7.0.3",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
-    "postcss": "^8.2.14",
+    "postcss": "^8.2.15",
     "tailwindcss": "^2.1.2"
   }
 }

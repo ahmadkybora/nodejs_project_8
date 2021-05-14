@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
 
-const Article = dbCon.define('Article', {
+const ChatCategory = dbCon.define('ChatCategory', {
     id: {
         type: DataTypes.BIGINT,
         primaryKey: true,
@@ -10,19 +10,10 @@ const Article = dbCon.define('Article', {
         unique: true,
         required: true,
     },
-    category_id: {
-        type: DataTypes.BIGINT,
-    },
-    employee_id: {
-        type: DataTypes.BIGINT,
-    },
-    name: {
-        type: DataTypes.STRING,
+    title: {
+        type: DataTypes.STRING
     },
     description: {
-        type: DataTypes.STRING,
-    },
-    status: {
         type: DataTypes.STRING
     },
     createdAt: {
@@ -35,5 +26,5 @@ const Article = dbCon.define('Article', {
     }
 });
 
-module.exports = Article;
+module.exports = ChatCategory;
 
