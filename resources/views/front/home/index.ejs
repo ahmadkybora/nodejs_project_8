@@ -120,6 +120,46 @@
 <%- include('../../layouts/front/navbar'); -%>
 <%- include('../../layouts/front/banner'); -%>
 <!-- -&#45;&#45;-->
+<!--<div class="container">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8">
+        &lt;!&ndash; Heading &ndash;&gt;
+        <div class="font"> Real Time Quotes  </div>
+        <hr>
+        &lt;!&ndash; Default quote &ndash;&gt;
+        <div class="quotes" id="quotes">
+            <blockquote> have a great day , have a great life </blockquote>
+        </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+
+</div>
+
+<script>
+    //Jquery code starts here
+    $('document').ready(function(){
+        //Connecting the socket to host and port
+        var socket = io.connect('http://localhost:3000');
+        //Test event
+        //Users can skip it.
+        socket.on('news', function (data) {
+            console.log(data);
+            socket.emit('my other event', { my: 'data' });
+        });
+        //Test event ends here
+        //Main event "next"
+        socket.on('next' , function(data) {
+            console.log(data);
+            $('#quotes').append("<blockquote>" + data.data.quote + "</blockquote>")
+        })
+        //Event ends
+
+    });
+    //jquery code ends here
+</script>-->
 <div class="container mt-5">
     <div class="jumbotron">
         <% for(let product of products) { %>
@@ -138,7 +178,7 @@
     </div>
 </div>
 <!-- -&#45;&#45;-->
-<div class="container mt-5">
+<!--<div class="container mt-5">
     <div class="jumbotron">
         <form class="msg-text">
             <div class="form-group">
@@ -150,9 +190,102 @@
             </div>
         </form>
     </div>
-</div>
+</div>-->
+<!-- -&#45;&#45;-->
+<h1 id="socketio"> not connected </h1>
+<div id="display"> </div>
+<script src="https://cdn.socket.io/3.1.3/socket.io.min.js"
+        integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
+        crossorigin="anonymous"></script>
+<script>
+    var socket = io();
+    socket.on('connect', function() {
+        document.getElementById("socketio").innerHTML = "socket connected";
+    });
+    socket.on('showrows', function(chats) {
+        jQuery("#display").append(chats);
+    });
+
+    /*socket.on('showrows', function(chats) {
+        var html='';
+        for (var i=0; i<chats.length; i++) {
+            html += chats[i].title + ' ' + chats[i].description + '<br>';
+        }
+        document.getElementById("display").innerHTML = html;
+        console.log(chats);
+    });*/
+</script>
 <!-- -&#45;&#45;-->
 <div class="container">
+    <div class="jumbotron">
+        <div class="card" style="width: 18rem;">
+            <div class="card-title">Chat</div>
+            <hr>
+            <div class="card-body">
+                <p id="messages"></p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <form id="form" action="">
+            <div class="form-group col-md-3">
+                <input class="form-control" id="input" autocomplete="off"/>
+            </div>
+            <button>Send</button>
+        </form>
+    </div>
+</div>
+<!--//-->
+<script src="https://cdn.socket.io/3.1.3/socket.io.min.js"
+        integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
+        crossorigin="anonymous"></script>
+<script>
+    var socket = io();
+
+    var messages = document.getElementById('messages');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (input.value) {
+            socket.emit('chat message', input.value);
+            input.value = '';
+        }
+        socket.on('chat message', function (msg) {
+        /*var url = 'localhost:3000/panel/chats/store';
+        var myform = $('#form')[0];
+        var formData = new FormData(myform);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 800000,
+            success: function (data) {
+                console.log("SUCCESS : ", data);
+            },
+            error: function (e) {
+                console.log("ERROR : ", e);
+            }
+        });*/
+        });
+
+    });
+
+
+    socket.on('chat message', function (msg) {
+        var item = document.createElement('p');
+        item.textContent = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+</script>
+<!-- -&#45;&#45;-->
+<!--<div class="container">
     <br>
     <div class="jumbotron">
         <h1 class="display-4">Send Message</h1>
@@ -167,8 +300,26 @@
     <div id=”messages”>
 
     </div>
-</div>
-<script>
+</div>-->
+<!--<script>
+
+    var socket = io();
+
+    socket.emit('joining msg', name);
+
+    $('form').submit(function(e) {
+        e.preventDefault();            // will prevent page reloading
+        socket.emit('chat message', (name + ':  ' + $('#m').val()));
+        $('#messages').append($('<li id="list">').text('You:  ' + $('#m').val()));
+        $('#m').val('');
+        return false;
+    });
+    socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+    });
+
+</script>-->
+<!--<script>
     $(() => {
         $("#send").click(() => {
             sendMessage({
@@ -195,7 +346,7 @@
         $.post('http://localhost:8000/panel/chat/store', message)
     }
 
-</script>
+</script>-->
 <!-- -&#45;&#45;-->
 <div class="container mt-5">
     <div class="jumbotron">

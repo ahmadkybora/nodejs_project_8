@@ -48,6 +48,76 @@ const IN_PROD = NODE_ENV === 'production';
 
 
 /////////////////////////////////////////////////
+
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
+app.get('/a', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+const Chat = require('./app/Models/ChatModel');
+
+io.on('connection', (socket) => {
+    const chats = Chat.findAll();
+    socket.on('display', (chats) => {
+        io.emit('display', chats);
+    });
+    /*con.query('SELECT * FROM users',function(err,rows){
+        if(err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        socket.emit('showrows', chats);
+    });*/
+
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+    });
+});
+
+server.listen(3000, () => {
+    console.log('listening on *:3000');
+});
+
+
+/*const express = require('express');
+const app = express();*/
+
+/*const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);*/
+
+/*app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});*/
+
+/*server.listen(3000, () => {
+    console.log('listening on *:3000');
+});
+
+io.on('connection', (socket) => {
+    socket.on('chat message', (msg) => {
+        console.log('message: ' + msg);
+    });
+});
+
+io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' });
+io.on('connection', (socket) => {
+    socket.broadcast.emit('hi');
+});
+io.on('connection', (socket) => {
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+    });
+});*/
+
+/*const express = require('express');
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 io.on('connection', socket => {
@@ -57,8 +127,26 @@ io.on('connection', socket => {
         //console.log(msg);
         socket.broadcast.emit('sendToAll', msg)
     })
-});
+});*/
 /////////////////////////////////////////////////
+
+/*io.on('connection', function (socket) {
+
+    socket.emit('welcome', { data: 'welcome' });
+
+    socket.on('new' , function(data) {
+        console.log('About to upload Quote')
+        io.sockets.emit( 'next' , { data : data } )
+    })
+});*/
+
+
+
+
+
+
+
+
 
 
 
@@ -291,3 +379,44 @@ module.exports = app;
 // https://app.infinityfree.net/accounts/create/step2
 // account: mypro.app.infinityfree.net
 // password: 09392141724abc
+// server.js
+
+// Import all our dependencies
+//var express  = require('express');
+//var app      = express();
+//var server   = require('http').Server(app);
+//var io       = require('socket.io')(server);
+
+// tell express where to serve static files from
+//app.use(express.static(__dirname + '/public'));
+
+
+//server.listen(3000);
+//console.log('It\'s going down in 9992');
+
+
+// allow CORS
+/*app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+    if (req.method == 'OPTIONS') {
+        res.status(200).end();
+    } else {
+        next();
+    }
+});*/
+
+/*app.get('/a', function(req, res) {
+    //send the index.html in our public directory
+    res.render('index.html');
+});*/
+
+
+//Listen for connection
+/*io.on('connection', function(socket) {
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+    });
+
+});*/

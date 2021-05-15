@@ -12,5 +12,25 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js" integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
 <script src="/main.js"></script>
 <script src="/js/front/chat.js"></script>
+<script>
+    var socket = io();
+</script>
+<!--<script>
+    var socket = io();
+
+    socket.emit('joining msg', name);
+
+    $('form').submit(function(e) {
+        e.preventDefault();            // will prevent page reloading
+        socket.emit('chat message', (name + ':  ' + $('#m').val()));
+        $('#messages').append($('<li id="list">').text('You:  ' + $('#m').val()));
+        $('#m').val('');
+        return false;
+    });
+    socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+    });
+
+</script>-->
 </body>
 </html>
