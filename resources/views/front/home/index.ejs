@@ -192,7 +192,7 @@
     </div>
 </div>-->
 <!-- -&#45;&#45;-->
-<h1 id="socketio"> not connected </h1>
+<!--<h1 id="socketio"> not connected </h1>
 <div id="display"> </div>
 <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"
         integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
@@ -214,9 +214,9 @@
         document.getElementById("display").innerHTML = html;
         console.log(chats);
     });*/
-</script>
+</script>-->
 <!-- -&#45;&#45;-->
-<div class="container">
+<!--<div class="container">
     <div class="jumbotron">
         <div class="card" style="width: 18rem;">
             <div class="card-title">Chat</div>
@@ -234,8 +234,8 @@
             <button>Send</button>
         </form>
     </div>
-</div>
-<!--//-->
+</div>-->
+<!--//--><!--
 <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"
         integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
         crossorigin="anonymous"></script>
@@ -253,8 +253,8 @@
             socket.emit('chat message', input.value);
             input.value = '';
         }
-        socket.on('chat message', function (msg) {
-        /*var url = 'localhost:3000/panel/chats/store';
+        socket.on('chat message', function (msg) {-->
+        <!--var url = 'localhost:3000/panel/chats/store';
         var myform = $('#form')[0];
         var formData = new FormData(myform);
         $.ajax({
@@ -271,8 +271,8 @@
             error: function (e) {
                 console.log("ERROR : ", e);
             }
-        });*/
-        });
+        });-->
+<!--        });
 
     });
 
@@ -283,7 +283,7 @@
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
     });
-</script>
+</script>-->
 <!-- -&#45;&#45;-->
 <!--<div class="container">
     <br>

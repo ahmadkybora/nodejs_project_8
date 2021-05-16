@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
+const ProductCategory = require('./ProductCategory');
 
 const Product = dbCon.define('Product', {
     id: {
@@ -10,9 +11,9 @@ const Product = dbCon.define('Product', {
         unique: true,
         required: true,
     },
-    category_id: {
+    /*categoryId: {
         type: DataTypes.STRING,
-    },
+    },*/
     name: {
         type: DataTypes.STRING,
     },
@@ -38,5 +39,6 @@ const Product = dbCon.define('Product', {
     }
 });
 
+Product.belongsTo(ProductCategory);
 module.exports = Product;
 

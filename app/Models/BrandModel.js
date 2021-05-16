@@ -1,9 +1,9 @@
 const { DataTypes } = require('sequelize');
-const dbCon = require('../../database/connection');
+const sequelize = require('../../database/connection');
 
-const Brand = dbCon.define('Brand', {
+const Brand = sequelize.define('Brand', {
     id: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.INTEGER(11),
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
@@ -13,10 +13,10 @@ const Brand = dbCon.define('Brand', {
     name: {
         type: DataTypes.STRING,
         //required: true,
-        //unique: true
+        unique: true
     },
     status: {
-        type: DataTypes.STRING
+        type: DataTypes.ENUM('ACTIVE', 'PENDING')
     },
     createdAt: {
         allowNull: false,

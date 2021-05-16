@@ -17,7 +17,17 @@ const ProductCategoryController = {
 
 async function index(req, res) {
     try {
-        const categories = await ProductCategory.findAll();
+        const categories = await ProductCategory.findAll({ include: Brand });
+        /*const brand = await Brand.findAll();
+
+        for(let brandId of categories){
+            await ProductCategory.findByPk(brandId, {
+                where: {
+                    brandId: brand.id
+                }
+            })
+        }*/
+
         res.render("panel/product-categories", {
             title: "Product Categories",
             categories: categories,
@@ -43,7 +53,8 @@ async function store(req, res) {
 /*    const validate = v.validate(req.body, productCategoryRequestValidation);
     if (validate === true) {*/
         try {
-            await ProductCategory.create(req.body);
+            const {brand_id, name, image, status} = req.body;
+            await ProductCategory.create({brand_id, name, image, status});
             res.redirect("/panel/product-categories")
         } catch (err) {
             return Handler.Error_503();
