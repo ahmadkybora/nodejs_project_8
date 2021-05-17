@@ -22,15 +22,19 @@ const AuthController = {
     showRegisterForm,
     register,
     logout,
+    showForgetPassword,
+    forgetPassword,
+    showResetPassword,
+    resetPassword
 };
 
-function showLoginForm(req, res){
+function showLoginForm(req, res) {
     res.render("auth/login", {
         error: req.flash("error")
     });
 }
 
-async function login(req, res){
+async function login(req, res) {
     const body = req.body;
     const user = await User.findOne({
         where: {
@@ -40,11 +44,9 @@ async function login(req, res){
 
     //sessionAuth(user);
 
-    if (user)
-    {
+    if (user) {
         const validPassword = await bcrypt.compare(body.password, user.password);
-        if (!validPassword)
-        {
+        if (!validPassword) {
             return Handler.Error_401(req, res);
             /*return res.status(422)
                 .json({
@@ -56,19 +58,19 @@ async function login(req, res){
 
         req.session.isLoggedIn = user.id;
         console.log(req.session.isLoggedIn);
-        if(req.session.isLoggedIn) {
+        if (req.session.isLoggedIn) {
             req.flash("success", "you are logged in");
             res.redirect("/panel/dashboard");
-        /*return res.status(200)
-            .json({
-                state: true,
-                message: "your are logged in",
-                data: {
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    username: user.username,
-                },
-            })*/
+            /*return res.status(200)
+                .json({
+                    state: true,
+                    message: "your are logged in",
+                    data: {
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        username: user.username,
+                    },
+                })*/
         }
 
 
@@ -79,26 +81,24 @@ async function login(req, res){
         if (token)
         {
             res.redirect("panel/dashboard");*/
-            /*return res.status(200)
-                .json({
-                    state: true,
-                    message: "your are logged in",
-                    data: {
-                        first_name: user.first_name,
-                        last_name: user.last_name,
-                        username: user.username,
-                        token: token,
-                    },
-                });
-        }*/
-        else{
+        /*return res.status(200)
+            .json({
+                state: true,
+                message: "your are logged in",
+                data: {
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    username: user.username,
+                    token: token,
+                },
+            });
+    }*/
+        else {
             return res.json({
                 data: "no you cant"
             })
         }
-    }
-    else
-    {
+    } else {
         return Handler.Error_401(req, res);
     }
 }
@@ -121,11 +121,11 @@ function rememberMe(req, res) {
     res.redirect("/panel/dashboard")
 }
 
-function showRegisterForm(req, res){
+function showRegisterForm(req, res) {
     res.render("auth/register");
 }
 
-async function register(req, res){
+async function register(req, res) {
 
     const validate = v.validate(req.body, userRequest);
     const errorArr = [];
@@ -142,8 +142,7 @@ async function register(req, res){
         const hash = await bcrypt.hash(password, 10);
         User.create({first_name, last_name, username, email, password: hash});
         res.redirect("panel/dashboard");
-    }
-    else {
+    } else {
         res.render("auth/register", {
             pageTitle: "ثبت نام کاربر",
             path: "/register",
@@ -151,18 +150,18 @@ async function register(req, res){
         });
     }
 
-   /*await userRequestValidation
-        .validate(req.body)
-        .then(() => {
-            res.redirect("panel/dashboard");
-        })
-        .catch((err) => {
-            res.render("auth/register", {
-                pageTitle: "ثبت نام کاربر",
-                path: "/register",
-                errors: err.errors,
-            });
-        });*/
+    /*await userRequestValidation
+         .validate(req.body)
+         .then(() => {
+             res.redirect("panel/dashboard");
+         })
+         .catch((err) => {
+             res.render("auth/register", {
+                 pageTitle: "ثبت نام کاربر",
+                 path: "/register",
+                 errors: err.errors,
+             });
+         });*/
     /*const body = req.body;
 
     if (body.password !== body.confirmation_password) {
@@ -195,18 +194,18 @@ async function register(req, res){
         });*/
 }
 
-function logout(req, res){
+function logout(req, res) {
     req.session.destroy(() => {
         //req.flash("success", "you are logged out")
         res.redirect('/login');
     });
-/*    req.logout();
-    return res.status(200)
-        .json({
-            state: true,
-            message: "you are logged out",
-            data: null,
-        });*/
+    /*    req.logout();
+        return res.status(200)
+            .json({
+                state: true,
+                message: "you are logged out",
+                data: null,
+            });*/
 }
 
 function generateAccessToken(username, id) {
@@ -221,7 +220,36 @@ function generateAccessToken(username, id) {
         id: id,
         /*iat: new Date().getTime(),
         exp: new Date().setDate(new Date().getDate() + 1)*/
-    }, 'SECRET', { expiresIn: '2d' });
+    }, 'SECRET', {expiresIn: '2d'});
+}
+
+function showForgetPassword(req, res) {
+    res.render("auth/forget-password", {
+        pageTitle: "",
+        path: "",
+    })
+}
+
+async function forgetPassword(req, res) {
+
+    const {email} = req.body;
+    const user = await User.findOne({email: email});
+    if (!user) {
+        return res.render("auth/forget-password", {
+            pageTitle: "",
+            path: "",
+        })
+    }
+
+    const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: "1h"});
+    const resetLink = `http://localhost:3000/reset-password/${token}`;
+    //sendEmail(user.first_name, user.last_name, user.email, 'فراموشی رمز عبور', )
+}
+
+function showResetPassword(req, res) {
+}
+
+async function resetPassword(req, res) {
 }
 
 module.exports = AuthController;
