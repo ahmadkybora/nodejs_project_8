@@ -11,7 +11,7 @@ router.post('/', checkAuth, EmployeeController.store);
 router.patch('/:id', checkAuth, EmployeeController.update);
 router.delete('/:id', checkAuth, EmployeeController.destroy);*/
 
-
+router.get('/captcha.png', EmployeeController.getCaptcha);
 router.get('/', isLoggedIn, EmployeeController.index);
 //router.get('/:id', isLoggedIn, EmployeeController.show);
 router.get('/create', isLoggedIn, EmployeeController.create);
