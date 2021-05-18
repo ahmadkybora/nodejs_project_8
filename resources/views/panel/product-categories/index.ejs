@@ -15,9 +15,13 @@
         <% for(let category of categories) { %>
             <tr>
                 <td><%= category.id %></td>
-                <td><%= category.brand_id %></td>
+                <td><%= category.Brand.name %></td>
                 <td><%= category.name %></td>
-                <td><%= category.status %></td>
+                <% if(category.status === "ACTIVE") { %>
+                    <td class="text-success"><%= category.status %></td>
+                <% }else if(category.status === "PENDING"){ %>
+                    <td class="text-warning"><%= category.status %></td>
+                <% } %>
                 <td>
                     <a href="/panel/product-categories/edit/<%= category.id %>" class="text-success">Edit</a>
                     <a href="/panel/product-categories/<%= category.id %>" class="text-primary">Show</a>
@@ -27,6 +31,7 @@
         <% } %>
         </tbody>
     </table>
+    <%- include('../../includes/pagination.ejs'); %>
 </div>
 <%- include('../../layouts/panel/footer'); %>
 

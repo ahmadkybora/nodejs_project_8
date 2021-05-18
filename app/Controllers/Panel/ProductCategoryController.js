@@ -16,22 +16,26 @@ const ProductCategoryController = {
 };
 
 async function index(req, res) {
-    try {
-        const categories = await ProductCategory.findAll({ include: Brand });
-        /*const brand = await Brand.findAll();
+    const page = +req.query.page || 1;
+    const perPage = 1;
 
-        for(let brandId of categories){
-            await ProductCategory.findByPk(brandId, {
-                where: {
-                    brandId: brand.id
-                }
-            })
-        }*/
+    try {
+        const numberOfEmployees = await ProductCategory.findAndCountAll();
+        const categories = await ProductCategory.findAll({include: Brand}, {
+            limit: perPage, offset: ((page - 1) * perPage)
+        });
 
         res.render("panel/product-categories", {
             title: "Product Categories",
             categories: categories,
+            currentPage: page,
+            nextPage: page + 1,
+            previousPage: page - 1,
+            hasNextPage: perPage * (page < numberOfEmployees.count),
+            hasPreviousPage: page > 1,
+            lastPage: Math.ceil(numberOfEmployees.count / perPage),
         })
+
     } catch (err) {
         console.log(err)
     }
@@ -50,22 +54,34 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-/*    const validate = v.validate(req.body, productCategoryRequestValidation);
-    if (validate === true) {*/
-        try {
-            const {brand_id, name, image, status} = req.body;
-            await ProductCategory.create({brand_id, name, image, status});
-            res.redirect("/panel/product-categories")
-        } catch (err) {
-            return Handler.Error_503();
-        }
-/*    } else {
-        res.render("panel/product-categories/create", {
-            pageTitle: 'product-categories create',
-            //path: "/register",
-            errors: validate,
-        });
-    }*/
+    /*    const validate = v.validate(req.body, productCategoryRequestValidation);
+        if (validate === true) {*/
+    try {
+        console.log(req.body);
+        const {name, image, status, brand_id} = req.body;
+        await ProductCategory.create({
+                name,
+                image,
+                status,
+                brandId: brand_id
+            }, {
+                include: {
+                    model: Brand
+                }
+            }
+        );
+        res.redirect("/panel/product-categories")
+    } catch (err) {
+        console.log(err);
+        //return Handler.Error_503();
+    }
+    /*    } else {
+            res.render("panel/product-categories/create", {
+                pageTitle: 'product-categories create',
+                //path: "/register",
+                errors: validate,
+            });
+        }*/
 }
 
 async function show(req, res) {
@@ -73,10 +89,14 @@ async function show(req, res) {
 
 async function edit(req, res) {
     try {
-        const category = await ProductCategory.findByPk(req.params.id);
-        res.render("panel/product-categories", {
-            category: category
-        })
+        const brands = await Brand.findAll();
+        const category = await ProductCategory.findByPk(req.params.id, {include: Brand});
+        console.log(category);
+        res.render('panel/product-categories/edit', {
+            title: "editEmployees",
+            category: category,
+            brands: brands,
+        });
     } catch (err) {
         console.log(err)
     }

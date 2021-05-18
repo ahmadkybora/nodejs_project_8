@@ -39,6 +39,19 @@ const Product = dbCon.define('Product', {
     }
 });
 
-Product.belongsTo(ProductCategory);
+Product.belongsTo(ProductCategory, {
+    foreignKey: 'brandId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+/*ProductCategory.hasMany(Product, {
+    foreignKey: 'brandId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});*/
+
 module.exports = Product;
 

@@ -1,3 +1,4 @@
+/*
 const {DataTypes, Model} = require('sequelize');
 const sequelize = require('./sequelize');
 
@@ -20,3 +21,4 @@ ProductCategory.init({
     });
 
 module.exports = ProductCategory;
+*/

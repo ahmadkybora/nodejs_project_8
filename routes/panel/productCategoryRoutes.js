@@ -8,7 +8,7 @@ router.get('/', isLoggedIn, ProductCategoryController.index);
 router.get('/create', isLoggedIn, ProductCategoryController.create);
 router.post('/store', isLoggedIn, ProductCategoryController.store);
 router.get('/edit/:id', isLoggedIn, ProductCategoryController.edit);
-router.patch('/update/:id', isLoggedIn, ProductCategoryController.update);
+router.post('/update/:id', isLoggedIn, ProductCategoryController.update);
 router.get('/destroy/:id', isLoggedIn, ProductCategoryController.destroy);
 
 module.exports = router;
