@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
+const EmployeeModel = require('./EmployeeModel');
 
 const ArticleCategory = dbCon.define('ArticleCategory', {
     id: {
@@ -10,14 +11,22 @@ const ArticleCategory = dbCon.define('ArticleCategory', {
         unique: true,
         required: true,
     },
-    brand_id: {
-        type: DataTypes.STRING,
+    employeeId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'employees',
+            key: 'id'
+        },
+        onDelete: 'CASCADE',
     },
     name: {
         type: DataTypes.STRING,
     },
-    status: {
+    image: {
         type: DataTypes.STRING
+    },
+    status: {
+        type: DataTypes.ENUM('ACTIVE', 'PENDING')
     },
     createdAt: {
         allowNull: false,
@@ -27,6 +36,20 @@ const ArticleCategory = dbCon.define('ArticleCategory', {
         allowNull: false,
         type: DataTypes.DATE
     }
+});
+
+ArticleCategory.belongsTo(EmployeeModel, {
+    foreignKey: 'employeeId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+EmployeeModel.hasMany(ArticleCategory, {
+    foreignKey: 'employeeId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
 });
 
 module.exports = ArticleCategory;

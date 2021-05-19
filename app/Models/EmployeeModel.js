@@ -12,13 +12,13 @@ const Employee = dbCon.define("Employee", {
     },
     first_name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        required: true,
+        /*allowNull: false,
+        required: true,*/
     },
     last_name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        required: true,
+        /*allowNull: false,
+        required: true,*/
     },
     username: {
         type: DataTypes.STRING

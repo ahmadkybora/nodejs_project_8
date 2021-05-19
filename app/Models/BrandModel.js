@@ -1,19 +1,30 @@
-const { DataTypes } = require('sequelize');
+const {DataTypes} = require('sequelize');
 const sequelize = require('../../database/connection');
+const EmployeeModel = require('./EmployeeModel');
 
 const Brand = sequelize.define('Brand', {
     id: {
-        type: DataTypes.INTEGER(11),
+        type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
         unique: true,
         required: true,
     },
+    employeeId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'employees',
+            key: 'id'
+        },
+        onDelete: 'CASCADE',
+    },
     name: {
         type: DataTypes.STRING,
-        //required: true,
         unique: true
+    },
+    image: {
+        type: DataTypes.STRING
     },
     status: {
         type: DataTypes.ENUM('ACTIVE', 'PENDING')
@@ -26,6 +37,20 @@ const Brand = sequelize.define('Brand', {
         allowNull: false,
         type: DataTypes.DATE
     }
+});
+
+Brand.belongsTo(EmployeeModel, {
+    foreignKey: 'employeeId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+EmployeeModel.hasMany(Brand, {
+    foreignKey: 'employeeId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
 });
 
 module.exports = Brand;

@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize');
 const dbCon = require('../../database/connection');
+const ArticleCategory = require('./ArticleCategory');
+const EmployeeModel = require('./EmployeeModel');
 
 const Article = dbCon.define('Article', {
     id: {
@@ -10,11 +12,21 @@ const Article = dbCon.define('Article', {
         unique: true,
         required: true,
     },
-    category_id: {
-        type: DataTypes.BIGINT,
+    categoryId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'categories',
+            key: 'id'
+        },
+        onDelete: 'CASCADE',
     },
-    employee_id: {
-        type: DataTypes.BIGINT,
+    employeeId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'employees',
+            key: 'id'
+        },
+        onDelete: 'CASCADE',
     },
     name: {
         type: DataTypes.STRING,
@@ -22,8 +34,11 @@ const Article = dbCon.define('Article', {
     description: {
         type: DataTypes.STRING,
     },
-    status: {
+    image: {
         type: DataTypes.STRING
+    },
+    status: {
+        type: DataTypes.ENUM('ACTIVE', 'PENDING')
     },
     createdAt: {
         allowNull: false,
@@ -33,6 +48,34 @@ const Article = dbCon.define('Article', {
         allowNull: false,
         type: DataTypes.DATE
     }
+});
+
+Article.belongsTo(ArticleCategory, {
+    foreignKey: 'categoryId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+ArticleCategory.hasMany(Article, {
+    foreignKey: 'categoryId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+Article.belongsTo(EmployeeModel, {
+    foreignKey: 'employeeId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+EmployeeModel.hasMany(Article, {
+    foreignKey: 'employeeId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
 });
 
 module.exports = Article;

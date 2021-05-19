@@ -11,9 +11,14 @@ const Product = dbCon.define('Product', {
         unique: true,
         required: true,
     },
-    /*categoryId: {
-        type: DataTypes.STRING,
-    },*/
+    categoryId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'productcategories',
+            key: 'id'
+        },
+        onDelete: 'CASCADE',
+    },
     name: {
         type: DataTypes.STRING,
     },
@@ -40,18 +45,18 @@ const Product = dbCon.define('Product', {
 });
 
 Product.belongsTo(ProductCategory, {
-    foreignKey: 'brandId',
+    foreignKey: 'categoryId',
     constraint: true,
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
 });
 
-/*ProductCategory.hasMany(Product, {
-    foreignKey: 'brandId',
+ProductCategory.hasMany(Product, {
+    foreignKey: 'categoryId',
     constraint: true,
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
-});*/
+});
 
 module.exports = Product;
 

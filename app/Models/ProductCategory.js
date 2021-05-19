@@ -1,6 +1,7 @@
 const {DataTypes} = require('sequelize');
 const dbCon = require('../../database/connection');
 const BrandModel = require('./BrandModel');
+const EmployeeModel = require('./EmployeeModel');
 
 const ProductCategory = dbCon.define('ProductCategory', {
     id: {
@@ -10,6 +11,14 @@ const ProductCategory = dbCon.define('ProductCategory', {
         autoIncrement: true,
         unique: true,
         required: true,
+    },
+    employeeId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'employees',
+            key: 'id'
+        },
+        onDelete: 'CASCADE',
     },
     brandId: {
         type: DataTypes.INTEGER,
@@ -26,7 +35,7 @@ const ProductCategory = dbCon.define('ProductCategory', {
         type: DataTypes.STRING,
     },
     status: {
-        type: DataTypes.STRING
+        type: DataTypes.ENUM('ACTIVE', 'PENDING')
     },
     createdAt: {
         allowNull: false,
@@ -47,6 +56,20 @@ ProductCategory.belongsTo(BrandModel, {
 
 BrandModel.hasMany(ProductCategory, {
     foreignKey: 'brandId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+ProductCategory.belongsTo(EmployeeModel, {
+    foreignKey: 'employeeId',
+    constraint: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
+
+EmployeeModel.hasMany(ProductCategory, {
+    foreignKey: 'employeeId',
     constraint: true,
     onDelete: "CASCADE",
     onUpdate: "CASCADE",

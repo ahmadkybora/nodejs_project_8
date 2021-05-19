@@ -307,6 +307,8 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js/bootstrap.mi
 app.use(express.static(__dirname + '/node_modules/jquery/dist/jquery.min.js'));
 app.use(express.static(__dirname + '/node_modules/popper.js/dist/popper.min.js'));
 app.use(express.static(__dirname + '/node_modules/@fortawesome/fontawesome-free/css/fontawesome.css'));
+app.use(express.static(__dirname + '/node_modules/owl.carousel/dist/assets/owl.carousel.min.css'));
+app.use(express.static(__dirname + '/node_modules/owl.carousel/dist/owl.carousel.min.js'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
