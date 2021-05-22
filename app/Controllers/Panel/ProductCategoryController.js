@@ -9,6 +9,8 @@ const Op = sequelize.Op;
 const multer = require('multer');
 const uuid = require('uuid').v4;
 const formidable = require('formidable');
+const sharp = require('sharp');
+const {storage, fileFilter} = require("../../../helpers/multer");
 
 const ProductCategoryController = {
     uploadImage,
@@ -145,21 +147,12 @@ async function create(req, res) {
 async function store(req, res) {
     /*    const validate = v.validate(req.body, productCategoryRequestValidation);
         if (validate === true) {*/
+    console.log(req);
     try {
         const {name, image, status, brandId} = req.body;
 
-        var form = new formidable.IncomingForm(options);
-        form.parse(req, function (err, fields, files) {
-            var oldpath = files.filetoupload.path;
-            var newpath = 'C:/Users/Your Name/' + files.filetoupload.name;
-            fs.rename(oldpath, newpath, function (err) {
-                if (err) throw err;
-                res.write('File uploaded and moved!');
-                res.end();
-            });
-        });
-
         await ProductCategory.create({
+                employeeId: 1,
                 name,
                 image,
                 status,
@@ -170,11 +163,239 @@ async function store(req, res) {
                 }
             }
         );
-        res.redirect("/panel/product-categories")
+
+        const upload = multer({
+            limits: { fileSize: 4000000 },
+            // dest: "uploads/",
+            // storage: storage,
+            fileFilter: fileFilter,
+        }).single("image");
+        //req.file
+        // console.log(req.file)
+
+        upload(req, res, async (err) => {
+            if (err) {
+                res.send(err);
+
+            } else {
+                if (req.file) {
+                    console.log(req.file);
+                    const fileName = `${uuid()}_${req.file.originalname}`;
+                    await sharp(req.file.buffer)
+                        .jpeg({
+                            quality: 60,
+                        })
+                        .toFile(`./../../public/storage/product-categories/${fileName}`)
+                        .catch((err) => console.log(err));
+                    res.status(200).send("آپلود عکس موفقیت آمیز بود");
+                } else {
+                    res.send("جهت آپلود باید عکسی انتخاب کنید");
+                }
+            }
+        });
+
     } catch (err) {
+        console.log(err)
+    }
+    /*        const storage = multer.diskStorage({
+                destination: (req, file, cb) => {
+                    cb(null, "../../../public/storage/product-categories/");
+                },
+                filename: (req, file, cb) => {
+                    console.log(file);
+                    cb(null, `${uuid()}_${file.originalname}`);
+                },
+            });
+
+            const fileFilter = (req, file, cb) => {
+                if (file.mimetype == "image/jpeg") {
+                    cb(null, true);
+                } else {
+                    cb("تنها پسوند JPEG پشتیبانی میشود", false);
+                }
+            };
+
+            const upload = multer({
+                limits: { fileSize: 4000000 },
+                // dest: "uploads/",
+                // storage: storage,
+                fileFilter: fileFilter,
+            }).single("image");
+            //req.file
+            // console.log(req.file)
+
+            upload(req, res, async (err) => {
+                console.log(JSON.stringify(req.file));
+                if (err) {
+                    res.send(err);
+                } else {
+                    if (req.file) {
+                        console.log(req.file);
+                        const fileName = `${uuid()}_${req.file.originalname}`;
+                        await sharp(req.file.buffer)
+                            .jpeg({
+                                quality: 60,
+                            })
+                            .toFile(`../../../public/storage/product-categories/${fileName}`)
+                            .catch((err) => console.log(err));
+                        res.status(200).send("آپلود عکس موفقیت آمیز بود");
+                    } else {
+                        res.send("جهت آپلود باید عکسی انتخاب کنید");
+                    }
+                }
+            });*/
+
+    /*const upload = multer({
+        limits: { fileSize: 4000000 },
+        dest: "storage/product-categories",
+        storage: storage,
+        fileFilter: fileFilter,
+    }).single("image");
+
+    upload(req, res, (err) => {
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            res.status(200).send("آپلود عکس موفقیت آمیز بود");
+        }
+    });*/
+    /*const {name, image, status, brandId} = req.body;
+
+    await ProductCategory.create({
+            employeeId: 1,
+            name,
+            image,
+            status,
+            brandId
+        }, {
+            include: {
+                model: Brand
+            }
+        }
+    );*/
+    /*var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, "../../public/storage/product-categories/")
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.originalname)
+        }
+    })*/
+    //var upload = multer({ storage: storage })
+    //var upload = multer({ storage: storage })
+    /*const upload = multer({
+        limits: { fileSize: 4000000 },
+        // dest: "uploads/",
+        // storage: storage,
+        fileFilter: fileFilter,
+    }).single("image");
+    //req.file
+    // console.log(req.file)
+
+    //console.log(req.file);
+    console.log(req.body);
+    //console.log(upload);
+    upload(req, res, async (err) => {
+        if (err) {
+            res.send(err);
+        } else {
+            if (req.file) {
+                console.log(req.file);
+                const fileName = `${uuid()}_${req.file.originalname}`;
+                await sharp(req.file.buffer)
+                    .jpeg({
+                        quality: 60,
+                    })
+                    .toFile(`../../../storage/public/images/product-categories/${fileName}`)
+                    .catch((err) => console.log(err));
+                res.status(200).send("آپلود عکس موفقیت آمیز بود");
+            } else {
+                res.send("جهت آپلود باید عکسی انتخاب کنید");
+            }
+        }
+    });*/
+
+    /*await sharp(req.file.buffer).jpeg({
+        quality: 60
+    }).toFile(`../../../storage/public/images/product-categories/${fileName}`);
+    console.log(req.body);*/
+
+    /*const form = formidable({ multiples: true });
+
+    form.parse(req, (err, fields, files) => {
+        //res.writeHead(200, { 'content-type': 'application/json' });
+        ProductCategory.create({
+                name,
+                image,
+                status,
+                brandId
+            }, {
+                include: {
+                    model: Brand
+                }
+            }
+        );
+        res.end(JSON.stringify({ fields, files }, null, 2));
+    });*/
+
+
+    /*var form = new formidable.IncomingForm();
+
+    form.parse(req);
+
+    form.on('fileBegin', function (name, file){
+        file.path = __dirname + '/storage/public/img' + file.name;
+    });
+
+    form.on('file', function (name, file){
+        console.log('Uploaded ' + file.name);
+    });
+
+    res.sendFile(__dirname + '/index.html');
+
+    var form = new formidable.IncomingForm(options);
+    form.parse(req, function (err, fields, files) {
+        var oldpath = files.filetoupload.path;
+        var newpath = 'C:/Users/Your Name/' + files.filetoupload.name;
+        fs.rename(oldpath, newpath, function (err) {
+            if (err) throw err;
+            res.write('File uploaded and moved!');
+            res.end();
+        });
+    });*/
+
+
+    /*await ProductCategory.create({
+            employeeId: 1,
+            name,
+            image,
+            status,
+            brandId
+        }, {
+            include: {
+                model: Brand
+            }
+        }
+    );*/
+
+    /*const form = new formidable.IncomingForm();
+
+    form.parse(req);
+
+    form.on('fileBegin', function (name, file){
+        file.path = '../../../storage/public/images/product-categories' + file.name;
+    });
+
+    form.on('file', function (name, file){
+        console.log('Uploaded ' + file.name);
+    });
+
+    res.redirect("/panel/product-categories")*/
+    /*} catch (err) {
         console.log(err);
         //return Handler.Error_503();
-    }
+    }*/
     /*    } else {
             res.render("panel/product-categories/create", {
                 pageTitle: 'product-categories create',

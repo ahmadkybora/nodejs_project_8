@@ -30,7 +30,7 @@ const path = require('path');
 const dir = path.basename('/Users/Refsnes/demo_path.js');
 const environment = process.env.NODE_ENV; // development
 const mongoose = require('mongoose');
-
+const fs = require('fs');
 const flash =require('connect-flash');
 const session = require('express-session');
 const TWO_HOURS = 1000 * 60 * 60 * 2;
