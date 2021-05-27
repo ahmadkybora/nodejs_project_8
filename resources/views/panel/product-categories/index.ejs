@@ -38,7 +38,7 @@
                         <td class="text-warning"><%= category.status %></td>
                     <% } %>
                     <td>
-                        <img src="<%= category.image %>" style="height: 50px; width: 50px;">
+                        <img src="<%= category.image %>" style="height: 50px; width: 50px;" alt="">
                     </td>
                     <td>
                         <a href="/panel/product-categories/edit/<%= category.id %>" class="text-success">Edit</a>
@@ -58,6 +58,9 @@
                     <% }else if(category.status === "PENDING"){ %>
                         <td class="text-warning"><%= category.status %></td>
                     <% } %>
+                    <td>
+                        <img src="<%= category.image %>" style="height: 50px; width: 50px;" alt="">
+                    </td>
                     <td>
                         <a href="/panel/product-categories/edit/<%= category.id %>" class="text-success">Edit</a>
                         <a href="/panel/product-categories/<%= category.id %>" class="text-primary">Show</a>

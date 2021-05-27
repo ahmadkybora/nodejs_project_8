@@ -11,8 +11,9 @@ const uuid = require('uuid').v4;
 const Formidable = require('formidable');
 const sharp = require('sharp');
 const {storage, fileFilter} = require("../../../helpers/multer");
-//let path = require("path");
+let path = require("path");
 var fs = require('fs');
+var mv = require('mv');
 
 const ProductCategoryController = {
     uploadImage,
@@ -26,7 +27,7 @@ const ProductCategoryController = {
     destroy
 };
 
-async function uploadImage(req, res) {
+async function uploadsImage(req, res) {
 
     const storage = multer.diskStorage({
         destination: (req, file, callback) => {
@@ -106,7 +107,7 @@ async function search(req, res) {
 
 async function index(req, res) {
     const page = +req.query.page || 1;
-    const perPage = 1;
+    const perPage = 10;
 
     try {
         const numberOfEmployees = await ProductCategory.findAndCountAll();
@@ -147,7 +148,103 @@ async function create(req, res) {
 }
 
 async function store(req, res) {
-    var storage = multer.diskStorage({
+    try {
+        let form = new Formidable.IncomingForm();
+        form.parse(req, (err, fields, files) => {
+            if (typeof files.file !== 'undefined') {
+                let oldPath = files.file.path;
+                const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+                let fileName = `${uniqueSuffix}_${uuid()}_${files.file.name}`;
+                let newPath = 'D:/nodejsProjects/nodejs_project_8/public/storage/product-categories/' + fileName;
+                mv(oldPath, newPath, function (err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        ProductCategory.create({
+                            employeeId: 1,
+                            name: fields.name,
+                            image: newPath,
+                            status: fields.status,
+                            brandId: fields.brandId
+                        }, {
+                            include: {
+                                model: Brand
+                            }
+                        });
+                    }
+                });
+            } else {
+                console.log(err);
+            }
+        });
+        res.redirect("/panel/product-categories");
+    } catch (err) {
+        console.log(err);
+    }
+
+/*    try {
+/*    let form = new Formidable.IncomingForm();
+    form.parse(req);
+    /!*form.on('field', function (field, value) {
+        //console.log(field);
+        console.log(value);
+    });*!/
+    form.on('fileBegin', function (name, file) {
+        let fileName = `${uuid()}_${file.name}`;
+        let a = file.path = __dirname + '/upload/' + fileName;
+        console.log(a);
+    });
+
+    form.on('file', function (name, file) {
+        console.log(file.name);
+    });*/
+
+
+/*                fs.rename(oldPath, newPath, function (err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        ProductCategory.create({
+                            employeeId: 1,
+                            name: fields.name,
+                            image: newPath,
+                            status: fields.status,
+                            brandId: fields.brandId
+                        }, {
+                            include: {
+                                model: Brand
+                            }
+                        });
+                    }
+                });*/
+
+        /*form.on('file', function (name, file) {
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+            let fileName = `${uniqueSuffix}_${uuid()}_${file.name}`;
+            file.path = __dirname + '/upload/' + fileName;
+        });*/
+
+
+    /*form.parse(req, function (err, fields, files) {
+        if (typeof files.file !== 'undefined'){
+            let oldPath = files.file.path;
+            let newPath = 'upload/sellers/blogs/' + r.insertId + files.file.name;
+            fs.rename(oldPath, './' + newPath, function (err) {
+                if (err) {
+                    res.status(200).json({status:true , message:"success but there is problem in your image" , data:r})
+                    res.end();
+                }else {
+                    Blog.update({
+                        file: newPath,
+                    }, [
+                        {condition: "AND",  id: r.insertId, operator: "="}
+                    ]).then(r2 =>{
+                        res.status(200).json({status:true , message:"success" , data:r})
+                        res.end();
+                    })
+                }*!/*/
+
+    /*var storage = multer.diskStorage({
         destination: function (req, file, cb) {
             console.log(file);
             cb(null, '../../../public/storage/product-categories/')
@@ -158,19 +255,19 @@ async function store(req, res) {
         }
     });
 
-    var upload = multer({ storage: storage })
+    var upload = multer({ storage: storage })*/
 
 
-/*    let form = new Formidable.IncomingForm();
-    form.parse(req, (err, fields, files) => {
-        console.log(files)
-    });
-    //let filePath;
+    /*    let form = new Formidable.IncomingForm();
+        form.parse(req, (err, fields, files) => {
+            console.log(files)
+        });
+        //let filePath;
 
-    form.on('file', function (name, file) {
-        let fileName = `${uuid()}_${file.name}`;
-        /!*filePath = *!/file.path = 'C:/nodejs_projects/nodejs_project_8/public/storage/product-categories/' + fileName;
-    });*/
+        form.on('file', function (name, file) {
+            let fileName = `${uuid()}_${file.name}`;
+            /!*filePath = *!/file.path = 'C:/nodejs_projects/nodejs_project_8/public/storage/product-categories/' + fileName;
+        });*/
 
     /*form.on('field', function (name, field) {
         ProductCategory.create({
@@ -228,7 +325,7 @@ async function store(req, res) {
             }
         });
     });*/
-    res.redirect("/panel/product-categories");
+
 
     //const form = new Formidable.IncomingForm();
     /*form.uploadDir = "./uploads";
