@@ -1,5 +1,6 @@
 const ProductCategory = require('../../Models/ProductCategory');
 const Brand = require('../../Models/BrandModel');
+const Employee = require('../../Models/EmployeeModel');
 const productCategoryRequestValidation = require('../../../app/RequestsValidations/productCategoryRequestValidation');
 const Validator = require('fastest-validator');
 const v = new Validator();
@@ -14,9 +15,17 @@ const {storage, fileFilter} = require("../../../helpers/multer");
 let path = require("path");
 var fs = require('fs');
 var mv = require('mv');
+var qs = require('querystring');
+
+var express = require("express");
+var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 const ProductCategoryController = {
-    uploadImage,
+    //uploadImage,
     search,
     index,
     create,
@@ -27,7 +36,7 @@ const ProductCategoryController = {
     destroy
 };
 
-async function uploadsImage(req, res) {
+/*async function uploadsImage(req, res) {
 
     const storage = multer.diskStorage({
         destination: (req, file, callback) => {
@@ -60,7 +69,7 @@ async function uploadsImage(req, res) {
             res.status(200).send("success")
         }
     })
-}
+}*/
 
 async function search(req, res) {
     const {search} = req.body;
@@ -138,30 +147,119 @@ async function index(req, res) {
 async function create(req, res) {
     try {
         const brands = await Brand.findAll();
+        const employees = await Employee.findAll();
         res.render("panel/product-categories/create", {
             title: "Product Categories",
-            brands: brands,
+            brands,
+            employees
         })
     } catch (err) {
         console.log(err)
     }
 }
 
-async function store(req, res) {
+function store(req, res) {
+    /*const validate = v.validate(req.body, productCategoryRequestValidation);
+    console.log(validate);
+    if (validate === true) {*/
     try {
         let form = new Formidable.IncomingForm();
+        const errorArr = [];
         form.parse(req, (err, fields, files) => {
             if (typeof files.file !== 'undefined') {
-                let oldPath = files.file.path;
+                const newPc = {
+                    employeeId: fields.employeeId,
+                    name: fields.name,
+                    status: fields.status,
+                    brandId: fields.brandId
+                };
+                try {
+                    const validator = productCategoryRequestValidation.isValid(newPc);
+                    validator.then(res => {
+                        return res.send("/panel/product-categories/create", "all Good");
+                        let oldPath = files.file.path;
+                        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+                        let fileName = `${uniqueSuffix}_${uuid()}_${files.file.name}`;
+                        //let newPath = 'D:/nodejsProjects/nodejs_project_8/public/storage/product-categories/' + fileName;
+                        let newPath = 'C:/nodejs_projects/nodejs_project_8/public/storage/product-categories/' + fileName;
+                        //let path = 'storage/product-categories/' + fileName;
+                        fs.rename(oldPath, newPath, function (err) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                ProductCategory.create({
+                                    employeeId: fields.employeeId,
+                                    name: fields.name,
+                                    image: newPath,
+                                    status: fields.status,
+                                    brandId: fields.brandId
+                                }, {
+                                    include: {
+                                        model: Brand
+                                    }
+                                });
+                            }
+                        });
+                        res.redirect("/panel/product-categories");
+                    }).catch(err => {
+                        const brands = Brand.findAll();
+                        res.render("panel/product-categories/create", {
+                            title: "Product Categories",
+                            brands: brands,
+                            errors: errorArr,
+                        });
+                    });
+
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+        });
+    } catch (err) {
+        console.log(err)
+    }
+
+
+                /*try {
+                    productCategoryRequestValidation.validate(newPc);
+                } catch (err) {
+                    console.log(errorArr);
+                    err.inner.forEach((e) => {
+                        errorArr.push({
+                            name: e.path,
+                            message: e.message,
+                        });
+                    });
+
+                    const brands = Brand.findAll();
+                    res.render("panel/product-categories/create", {
+                        title: "Product Categories",
+                        brands: brands,
+                        errors: errorArr,
+                    });
+                }*/
+
+                /*let a = fields.brandId;
+                const validate = v.validate(a, productCategoryRequestValidation);
+                console.log(validate);*/
+                /*const validate = v.validate(fields.brandId, productCategoryRequestValidation);
+                const validate = v.validate(fields.status, productCategoryRequestValidation);
+                const validate = v.validate(fields.name, productCategoryRequestValidation);*/
+                /*if (validate !== true) {
+
+                }*/
+                /*let oldPath = files.file.path;
                 const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
                 let fileName = `${uniqueSuffix}_${uuid()}_${files.file.name}`;
-                let newPath = 'D:/nodejsProjects/nodejs_project_8/public/storage/product-categories/' + fileName;
-                mv(oldPath, newPath, function (err) {
+                //let newPath = 'D:/nodejsProjects/nodejs_project_8/public/storage/product-categories/' + fileName;
+                let newPath = 'C:/nodejs_projects/nodejs_project_8/public/storage/product-categories/' + fileName;
+                //let path = 'storage/product-categories/' + fileName;
+                fs.rename(oldPath, newPath, function (err) {
                     if (err) {
                         console.log(err);
                     } else {
                         ProductCategory.create({
-                            employeeId: 1,
+                            employeeId: fields.employeeId,
                             name: fields.name,
                             image: newPath,
                             status: fields.status,
@@ -177,10 +275,23 @@ async function store(req, res) {
                 console.log(err);
             }
         });
-        res.redirect("/panel/product-categories");
-    } catch (err) {
+        res.redirect("/panel/product-categories")*/;
+    /*} catch (err) {
         console.log(err);
-    }
+    }*/
+
+    /*} else {
+        try {
+            const brands = await Brand.findAll();
+            res.render("panel/product-categories/create", {
+                title: "Product Categories",
+                brands: brands,
+                errors: validate,
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }*/
 
 /*    try {
 /*    let form = new Formidable.IncomingForm();

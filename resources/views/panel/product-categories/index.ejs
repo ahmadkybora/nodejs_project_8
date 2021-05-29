@@ -22,6 +22,7 @@
             <th>Name</th>
             <th>Status</th>
             <th>Image</th>
+            <th>Created</th>
             <th>Option</th>
         </tr>
         </thead>
@@ -38,7 +39,7 @@
                         <td class="text-warning"><%= category.status %></td>
                     <% } %>
                     <td>
-                        <img src="<%= category.image %>" style="height: 50px; width: 50px;" alt="">
+                        <img src="<%= console.log(category.image) %>" style="height: 150px; width: 150px;" alt="" />
                     </td>
                     <td>
                         <a href="/panel/product-categories/edit/<%= category.id %>" class="text-success">Edit</a>
@@ -59,8 +60,9 @@
                         <td class="text-warning"><%= category.status %></td>
                     <% } %>
                     <td>
-                        <img src="<%= category.image %>" style="height: 50px; width: 50px;" alt="">
+                        <img class="image-circle" src="<%= category.image %>" style="height: 50px; width: 50px;" alt="">
                     </td>
+                    <td><%= category.createdAt %></td>
                     <td>
                         <a href="/panel/product-categories/edit/<%= category.id %>" class="text-success">Edit</a>
                         <a href="/panel/product-categories/<%= category.id %>" class="text-primary">Show</a>

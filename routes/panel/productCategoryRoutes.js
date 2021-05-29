@@ -3,7 +3,7 @@ const router = express.Router();
 const ProductCategoryController = require('../../app/Controllers/Panel/ProductCategoryController');
 const isLoggedIn = require('../../middlewares/sessions/isLoggedIn');
 
-router.post('/image-upload', isLoggedIn, ProductCategoryController.uploadImage);
+//router.post('/image-upload', isLoggedIn, ProductCategoryController.uploadImage);
 router.post('/category-search', isLoggedIn, ProductCategoryController.search);
 router.get('/', isLoggedIn, ProductCategoryController.index);
 //router.get('/show/:id', isLoggedIn, ProductCategoryController.show);

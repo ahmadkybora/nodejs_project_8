@@ -3,10 +3,19 @@
     <div class="jumbotron">
         <!--//-->
         <%- include("../../errors/errorMessages.ejs") %>
-        <form action="/panel/product-categories/store" method="post" enctype="multipart/form-data">
+        <form method="post" action="/panel/product-categories/store" enctype="multipart/form-data">
             <!--//-->
             <div class="row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
+                    <select class="form-control"
+                            name="employeeId"
+                            id="employeeId">
+                        <% for(let employee of employees) { %>
+                            <option value="<%= employee.id %>"><%= employee.username %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
                     <select class="form-control"
                             name="brandId"
                             id="brandId">
@@ -15,7 +24,9 @@
                         <% } %>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
                     <select class="form-control"
                             name="status"
                             id="status">
@@ -23,7 +34,7 @@
                         <option value="PENDING">PENDING</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                     <input type="text"
                            class="form-control"
                            name="name"
@@ -75,20 +86,37 @@
         </form>
     </div>
 </div>
-<!--<script>
-    function upImg() {
-        let form = document.getElementById("formData").val;
-        alert(form);
-        console.log(form);
-        let formData = new FormData(form);
+<script>
+    function ProductCategoryStore() {
+        let baseUrl = "http://localhost:8000/panel/";
+        let formData = new FormData();
 
+        formData.append("employeeId", JSON.stringify($("#employeeId").val()));
+        formData.append("brandId", JSON.stringify($("#brandId").val()));
+        formData.append("status", JSON.stringify($("#status").val()));
+        formData.append("name", JSON.stringify($("#name").val()));
+        formData.append("file", JSON.stringify($("#file")[0].files[0]));
+
+        /*let a = formData.get("file");
+        alert(typeof JSON.stringify(a));*/
         $.ajax({
-            type: 'POST',
-            url: '/panel/product-categories/store',
-            data: formData,
+            type: "POST",
+            method: "POST",
+            url: baseUrl + "product-categories/store",
+            //data : {'formData': JSON.stringify(formData)},
+            data : JSON.stringify(formData),
+            //data : formData,
+            //dataType : "json",
+            cache: false,
+            processData: false,
+            contentType : 'application/json',
+            success: function(data){
+                alert(data)
+            },
+            error: function (){}
         })
     }
-</script>-->
+</script>
 <%- include('../../layouts/panel/footer'); %>
 
 

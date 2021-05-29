@@ -1,15 +1,20 @@
-const productCategoryRequestValidation = {
-/*    brand_id: {
-        type: "string",
+/*const productCategoryRequestValidation = {
+    employeeId: {
+        type: "number",
+        integer: true,
         trim: true,
-        min: 2,
-        max: 255,
         messages: {
-            required: "نام خانوادگی الزامی است",
-            stringMin: "نام خانوادگی نباید کمتر از 2 کلمه باشد",
-            stringMax: "نام خانوادگی نباید بیشتر از 255 کلمه باشد",
+            required: "نام کارمند الزامی است",
         }
-    },*/
+    },
+    brandId: {
+        type: "number",
+        integer: true,
+        trim: true,
+        messages: {
+            required: "نام برند الزامی است",
+        }
+    },
     name: {
         type: "string",
         trim: true,
@@ -23,4 +28,19 @@ const productCategoryRequestValidation = {
     },
 };
 
-module.exports = productCategoryRequestValidation;
+module.exports = productCategoryRequestValidation;*/
+
+const Yup = require("yup");
+
+const userRequestValidation = Yup.object().shape({
+    employeeId: Yup.string()
+        .required("نام کارمند است"),
+
+    brandId: Yup.string()
+        .required("نام برند الزامی است"),
+
+    name: Yup.string()
+        .required("نام الزامی است"),
+});
+
+module.exports = userRequestValidation;
